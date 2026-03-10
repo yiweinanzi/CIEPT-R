@@ -74,3 +74,14 @@ PYTHONPATH=src python -m ciept.data.cli \
 - adapter placeholders for later tensor-backed tasks
 
 The graph layer intentionally does not parse raw items or import `torch` yet.
+
+## Prior Layer
+
+`T004` adds a lightweight `src/ciept/priors/` package with:
+
+- heuristic corroboration, stability, and vulnerability scoring
+- interpretable reliability aggregation
+- normalized capacity prior construction
+- nuisance-mask inference with explicit-label precedence and heuristic fallback
+
+This layer is intentionally metadata-driven and keeps learned heads out of scope.

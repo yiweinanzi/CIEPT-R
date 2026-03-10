@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 10:56 UTC - T004
+
+- Goal: Build a runnable heuristic prior layer for reliability, capacity priors, and nuisance masks on top of the graph boundary.
+- Changes: Added `src/ciept/priors/` with metadata-first corroboration/stability/vulnerability heuristics, interpretable reliability aggregation, safe `q_cap` normalization, and nuisance inference that prefers explicit labels but falls back to slightly aggressive heuristics.
+- Verification: `python -m pytest tests/test_priors_heuristics.py tests/test_priors_aggregate.py -v`; `python -m pytest tests/test_priors_nuisance.py tests/test_persistence.py::test_t004_marked_done_and_t005_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T005` with toy partial transport sanity checks using the new reliability and capacity outputs as inputs.
+
 ## 2026-03-10 10:36 UTC - T003
 
 - Goal: Define the graph-facing interfaces for item evidence nodes, strict block-diagonal topology, and cache serialization.

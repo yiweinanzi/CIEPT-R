@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T004",
+  "current_focus": "T005",
   "tasks": [
     {
       "id": "T001",
@@ -72,7 +72,7 @@
     {
       "id": "T004",
       "title": "Reliability Prior、Capacity Prior 与 Nuisance Mask",
-      "status": "pending",
+      "status": "done",
       "priority": 4,
       "depends_on": [
         "T003"
@@ -87,7 +87,7 @@
         "src/ciept/priors/",
         "tests/"
       ],
-      "notes": "目标是语义对齐与可审计性，不是追求复杂模型。"
+      "notes": "已完成 metadata-first heuristic signals、reliability aggregation、safe q_cap normalization，以及显式优先/启发式兜底的 nuisance mask。"
     },
     {
       "id": "T005",
