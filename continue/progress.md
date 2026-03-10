@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 10:36 UTC - T003
+
+- Goal: Define the graph-facing interfaces for item evidence nodes, strict block-diagonal topology, and cache serialization.
+- Changes: Added `src/ciept/graph/` with dataclass-based node and topology types, block-diagonal topology builders, cache round-trip helpers, and an adapter placeholder that keeps tensor logic deferred.
+- Verification: `python -m pytest tests/test_graph_types.py tests/test_graph_builders.py -v`; `python -m pytest tests/test_graph_cache.py tests/test_persistence.py::test_t003_marked_done_and_t004_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T004` with reliability prior, capacity prior, and nuisance mask interfaces on top of the graph boundary defined here.
+
 ## 2026-03-10 10:08 UTC - T002
 
 - Goal: Establish the offline data protocol with deterministic global temporal splitting and explicit missing-modality handling.

@@ -63,3 +63,14 @@ PYTHONPATH=src python -m ciept.data.cli \
 - `T003`: evidence graph and topology cache interfaces
 - `T004`: reliability prior, capacity prior, and nuisance mask interfaces
 - `T005`: toy partial transport sanity check
+
+## Graph Layer
+
+`T003` introduces a lightweight `src/ciept/graph/` package with:
+
+- dataclass-based node and topology types
+- strict block-diagonal topology builders for text and vision evidence
+- JSON-friendly cache serialization helpers
+- adapter placeholders for later tensor-backed tasks
+
+The graph layer intentionally does not parse raw items or import `torch` yet.

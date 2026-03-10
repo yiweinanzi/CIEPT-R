@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T003",
+  "current_focus": "T004",
   "tasks": [
     {
       "id": "T001",
@@ -51,7 +51,7 @@
     {
       "id": "T003",
       "title": "Evidence Graph 与块对角拓扑缓存骨架",
-      "status": "pending",
+      "status": "done",
       "priority": 3,
       "depends_on": [
         "T001",
@@ -67,7 +67,7 @@
         "src/ciept/graph/",
         "tests/"
       ],
-      "notes": "先定义清晰边界，不提前堆复杂解析逻辑。"
+      "notes": "已完成 dataclass 边界、严格块对角 topology builder、JSON-friendly cache round-trip 和 adapter 占位接口。"
     },
     {
       "id": "T004",
