@@ -60,9 +60,8 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T010`: VLM audit set and adjudication pipeline
-- `T011`: ranking, faithfulness, and usage-diagnosis metrics
 - `T012`: experiment runners and result templates
+- `T013`: final delivery artifacts and paper-facing exports
 
 ## Graph Layer
 
@@ -139,6 +138,16 @@ This stays at the structured-node level and does not perform real image processi
 - initializes `adjudication_queue.jsonl`
 
 It stays provider-agnostic and file-based, so a concrete VLM can be plugged in later without rewriting the schema.
+
+## Metrics Layer
+
+`T011` adds a reusable metrics package for:
+
+- ranking metrics (`Recall@k`, `NDCG@k`, `MRR`)
+- faithfulness metrics (`SufficiencyGap`, `ComprehensivenessGap`, `LeakageRatio`, `SupportPrecision/Recall/F1`)
+- usage diagnostics (`Image Shuffle Drop`, `Random Caption Drop`, `Missing-Modality Drop`, `Transported Mass Ratio`)
+
+It intentionally stops short of significance testing or experiment-runner orchestration.
 
 ## Conflict Stress Protocol
 

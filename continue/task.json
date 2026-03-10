@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T011",
+  "current_focus": "T012",
   "tasks": [
     {
       "id": "T001",
@@ -218,7 +218,7 @@
     {
       "id": "T011",
       "title": "排序、Faithfulness 与 Usage Diagnosis 指标包",
-      "status": "pending",
+      "status": "done",
       "priority": 11,
       "depends_on": [
         "T007",
@@ -235,7 +235,7 @@
         "src/ciept/metrics/",
         "tests/"
       ],
-      "notes": "指标要避免被总质量收缩等技巧钻空子。"
+      "notes": "已完成 ranking、faithfulness、usage diagnosis 指标公式包，显著性检验仍保留给后续实验 runner。"
     },
     {
       "id": "T012",

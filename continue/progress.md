@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 12:38 UTC - T011
+
+- Goal: Add a reusable metrics package that centralizes ranking, faithfulness, and usage-diagnosis formulas.
+- Changes: Added `src/ciept/metrics/` with ranking metrics, faithfulness metrics, usage diagnostics, and lightweight dataclass wrappers for metric bundles.
+- Verification: `python -m pytest tests/test_metrics_ranking.py tests/test_metrics_faithfulness.py -v`; `python -m pytest tests/test_metrics_usage.py tests/test_persistence.py::test_t011_marked_done_and_t012_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T012` with experiment runners and result templates that consume the new metrics package.
+
 ## 2026-03-10 12:15 UTC - T010
 
 - Goal: Add an audit-dataset protocol that can export samples for VLM pre-annotation, merge predictions back, and initialize human adjudication queues.
