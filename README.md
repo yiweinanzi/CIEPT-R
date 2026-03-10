@@ -139,6 +139,16 @@ This stays at the structured-node level and does not perform real image processi
 
 It stays provider-agnostic and file-based, so a concrete VLM can be plugged in later without rewriting the schema.
 
+## Experiment Runner
+
+`T012` adds a dispatcher-based `src/ciept/experiments/` package that:
+
+- routes named experiments to dedicated modules
+- writes `metrics.json` and `summary.md` under `results/<experiment>/<run_id>/`
+- keeps toy/placeholder runs clearly labeled
+
+It standardizes experiment outputs without pretending the current runs are real benchmark results.
+
 ## Metrics Layer
 
 `T011` adds a reusable metrics package for:

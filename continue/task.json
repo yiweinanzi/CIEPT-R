@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T012",
+  "current_focus": "T013",
   "tasks": [
     {
       "id": "T001",
@@ -240,7 +240,7 @@
     {
       "id": "T012",
       "title": "主实验 Runner 与结果模板",
-      "status": "pending",
+      "status": "done",
       "priority": 12,
       "depends_on": [
         "T008",
@@ -256,7 +256,7 @@
         "src/ciept/experiments/",
         "scripts/"
       ],
-      "notes": "先把协议跑通，再扩实验规模。"
+      "notes": "已完成统一 experiment dispatcher、分实验 toy modules、results 目录协议，以及 metrics.json/summary.md 写盘模板。"
     },
     {
       "id": "T013",

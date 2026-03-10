@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 12:49 UTC - T012
+
+- Goal: Add a dispatcher-based experiment runner that standardizes result directories and per-experiment outputs.
+- Changes: Added `src/ciept/experiments/` with shared result types, run-directory I/O, a central dispatcher, and toy modules for main results, robustness, faithfulness, ablation, usage, and efficiency experiments.
+- Verification: `python -m pytest tests/test_experiment_runner.py -v`; `python -m pytest tests/test_experiment_modules.py tests/test_persistence.py::test_t012_marked_done_and_t013_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T013` with final delivery artifacts and paper-facing exports built on the now-stable results protocol.
+
 ## 2026-03-10 12:38 UTC - T011
 
 - Goal: Add a reusable metrics package that centralizes ranking, faithfulness, and usage-diagnosis formulas.
