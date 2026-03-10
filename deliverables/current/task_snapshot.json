@@ -1,0 +1,282 @@
+{
+  "current_focus": "complete_pending_external_assets",
+  "last_updated": "2026-03-10",
+  "project": "CIEPT-R",
+  "tasks": [
+    {
+      "acceptance_criteria": [
+        "\u5b58\u5728 src/ciept Python \u5305\u9aa8\u67b6",
+        "\u5b58\u5728 configs/base.yaml \u4e14\u53ef\u88ab\u52a0\u8f7d",
+        "CLI \u53ef\u4ee5\u6253\u5370\u9879\u76ee\u6458\u8981",
+        "pytest \u4e0e scripts/check.sh \u9a8c\u8bc1\u901a\u8fc7",
+        "continue/AGENT.MD\u3001continue/progress.md\u3001continue/task.json \u5df2\u540c\u6b65\u66f4\u65b0"
+      ],
+      "artifacts": [
+        "README.md",
+        "pyproject.toml",
+        "configs/base.yaml",
+        "src/ciept/",
+        "scripts/check.sh",
+        "tests/"
+      ],
+      "depends_on": [],
+      "id": "T001",
+      "notes": "\u5df2\u5b8c\u6210\u3002\u540e\u7eed\u4efb\u52a1\u4ece\u6570\u636e\u534f\u8bae\u548c\u65f6\u95f4\u5207\u5206\u5f00\u59cb\u3002",
+      "priority": 1,
+      "status": "done",
+      "summary": "\u628a\u5f53\u524d\u76ee\u5f55\u5efa\u7acb\u4e3a\u6700\u5c0f\u53ef\u8fd0\u884c\u7684 Python \u7814\u7a76\u5de5\u7a0b\uff0c\u5e76\u5b8c\u6210\u57fa\u7840\u9a8c\u8bc1\u3002",
+      "title": "\u5de5\u7a0b\u521d\u59cb\u5316\u4e0e\u914d\u7f6e\u6821\u9a8c"
+    },
+    {
+      "acceptance_criteria": [
+        "\u5b9a\u4e49 raw/interim/processed \u76ee\u5f55\u89c4\u8303",
+        "\u5b9e\u73b0\u5168\u5c40\u7edd\u5bf9\u65f6\u95f4\u5207\u5206\u811a\u672c",
+        "\u660e\u786e transductive \u4e3b\u8bbe\u5b9a\u4e0e cold-start \u5355\u72ec\u6c47\u62a5",
+        "\u4e3a Amazon Reviews 2023 \u4e3b\u57fa\u51c6\u4fdd\u7559\u5165\u53e3"
+      ],
+      "artifacts": [
+        "data/",
+        "scripts/"
+      ],
+      "depends_on": [
+        "T001"
+      ],
+      "id": "T002",
+      "notes": "\u5df2\u5b8c\u6210\u57fa\u7840\u76ee\u5f55\u89c4\u8303\u3001k-core + global split CLI \u548c missing-modality \u62a5\u544a\u3002RecBole \u53ea\u8bfb\u53d6\u79bb\u7ebf\u5207\u5206\u7ed3\u679c\uff0c\u4e0d\u8d1f\u8d23\u4e3b\u65f6\u95f4\u5212\u5206\u3002",
+      "priority": 2,
+      "status": "done",
+      "summary": "\u628a aaai\u9879\u76ee.md \u4e2d\u7684\u5168\u5c40 80/10/10 \u65f6\u95f4\u5207\u5206\u3001iterative 5-core\u3001\u7f3a\u5931\u6a21\u6001\u4fdd\u7559\u7b56\u7565\u843d\u5b9e\u4e3a\u6570\u636e\u534f\u8bae\u4e0e\u68c0\u67e5\u811a\u672c\u3002",
+      "title": "\u6570\u636e\u534f\u8bae\u4e0e\u5168\u5c40\u65f6\u95f4\u5207\u5206"
+    },
+    {
+      "acceptance_criteria": [
+        "\u6587\u672c\u4e0e\u89c6\u89c9\u62d3\u6251\u5206\u522b\u5b9a\u4e49\u4e0e\u5f52\u4e00\u5316",
+        "\u8de8\u6a21\u6001\u5757\u4e0d\u627f\u8f7d\u51e0\u4f55\u8fb9",
+        "\u5b58\u5728 evidence graph/topology cache \u7684\u6700\u5c0f\u6d4b\u8bd5"
+      ],
+      "artifacts": [
+        "src/ciept/graph/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T001",
+        "T002"
+      ],
+      "id": "T003",
+      "notes": "\u5df2\u5b8c\u6210 dataclass \u8fb9\u754c\u3001\u4e25\u683c\u5757\u5bf9\u89d2 topology builder\u3001JSON-friendly cache round-trip \u548c adapter \u5360\u4f4d\u63a5\u53e3\u3002",
+      "priority": 3,
+      "status": "done",
+      "summary": "\u5efa\u7acb\u6587\u672c\u8282\u70b9\u3001\u89c6\u89c9\u8282\u70b9\u3001\u5757\u5bf9\u89d2 topology cache \u7684\u63a5\u53e3\u5c42\u548c\u6700\u5c0f\u53ef\u6d4b\u8bd5\u6570\u636e\u7ed3\u6784\u3002",
+      "title": "Evidence Graph \u4e0e\u5757\u5bf9\u89d2\u62d3\u6251\u7f13\u5b58\u9aa8\u67b6"
+    },
+    {
+      "acceptance_criteria": [
+        "\u652f\u6301 corroboration/stability/vulnerability \u4e09\u7c7b\u8f93\u5165",
+        "\u751f\u6210 q_cap \u4e0e nuisance mask",
+        "\u5b58\u5728 clean \u4e0e nuisance \u8282\u70b9\u5206\u79bb\u7684\u57fa\u7840 sanity check"
+      ],
+      "artifacts": [
+        "src/ciept/priors/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T003"
+      ],
+      "id": "T004",
+      "notes": "\u5df2\u5b8c\u6210 metadata-first heuristic signals\u3001reliability aggregation\u3001safe q_cap normalization\uff0c\u4ee5\u53ca\u663e\u5f0f\u4f18\u5148/\u542f\u53d1\u5f0f\u515c\u5e95\u7684 nuisance mask\u3002",
+      "priority": 4,
+      "status": "done",
+      "summary": "\u5b9e\u73b0 reliability \u4fe1\u53f7\u6c47\u603b\u3001capacity prior \u8ba1\u7b97\u548c nuisance mask \u7684\u6570\u636e\u63a5\u53e3\u3002",
+      "title": "Reliability Prior\u3001Capacity Prior \u4e0e Nuisance Mask"
+    },
+    {
+      "acceptance_criteria": [
+        "\u5b58\u5728 toy \u8f93\u5165\u4e0e\u671f\u671b\u8f93\u51fa",
+        "\u80fd\u9a8c\u8bc1 transported mass budget \u751f\u6548",
+        "\u80fd\u9a8c\u8bc1\u672a\u8fd0\u8f93\u8d28\u91cf\u5177\u6709 reject semantics"
+      ],
+      "artifacts": [
+        "src/ciept/transport/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T003",
+        "T004"
+      ],
+      "id": "T005",
+      "notes": "\u5df2\u5b8c\u6210 NumPy toy partial transport\u3001budget/capacity/reject semantic checks\uff0c\u4ee5\u53ca hand-crafted toy cases\u3002",
+      "priority": 5,
+      "status": "done",
+      "summary": "\u7528\u5c0f\u89c4\u6a21\u6837\u672c\u9a8c\u8bc1 partial mass budget\u3001capacity prior\u3001reject semantics \u7684\u6570\u503c\u95ed\u73af\u3002",
+      "title": "Toy Partial Transport \u4e0e Reject Semantics Sanity Check"
+    },
+    {
+      "acceptance_criteria": [
+        "p \u548c q_cap \u8fdb\u5165\u4ee3\u7801\u8def\u5f84",
+        "\u8d28\u91cf\u9884\u7b97\u4e0e\u7ed3\u6784\u6b63\u5219\u53ef\u914d\u7f6e",
+        "\u524d\u5411\u8fc7\u7a0b\u5728\u5c0f\u6279\u91cf\u4e0a\u7a33\u5b9a"
+      ],
+      "artifacts": [
+        "src/ciept/transport/",
+        "src/ciept/models/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T005"
+      ],
+      "id": "T006",
+      "notes": "\u5df2\u5b8c\u6210 torch \u524d\u5411\u9aa8\u67b6\u3001feature cost\u3001capacity penalty\u3001partial transport operator \u548c\u6700\u5c0f reranker \u8f93\u51fa\u8def\u5f84\u3002Gromov \u9879\u4ecd\u7136\u4fdd\u7559\u5728\u540e\u7eed\u4efb\u52a1\u3002",
+      "priority": 6,
+      "status": "done",
+      "summary": "\u5b9e\u73b0 feature cost\u3001topology regularization\u3001mass budget \u4e0e q_cap \u5bf9\u9f50\u7684\u6700\u5c0f reranker \u524d\u5411\u6d41\u7a0b\u3002",
+      "title": "Capacity-Calibrated Partial Transport Reranker"
+    },
+    {
+      "acceptance_criteria": [
+        "support \u5148\u505a capacity normalization \u518d\u8fdb logit",
+        "Leakage \u4f7f\u7528 ratio \u800c\u4e0d\u662f\u7edd\u5bf9\u603b\u91cf",
+        "selected-only/selected-removed \u8def\u5f84\u53ef\u6d4b"
+      ],
+      "artifacts": [
+        "src/ciept/audit/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T005",
+        "T006"
+      ],
+      "id": "T007",
+      "notes": "\u5df2\u5b8c\u6210 normalized support\u3001support logits\u3001binary Gumbel/STE gating\u3001leakage ratio \u548c single-pass intervention loss\u3002",
+      "priority": 7,
+      "status": "done",
+      "summary": "\u5b9e\u73b0 capacity-normalized support\u3001single-pass intervention \u548c leakage ratio \u8bca\u65ad\u3002",
+      "title": "Normalized Support \u5e72\u9884\u5c42\u4e0e Leakage Ratio"
+    },
+    {
+      "acceptance_criteria": [
+        "\u5b58\u5728 train CLI \u6216\u7b49\u4ef7\u5165\u53e3",
+        "\u4e3b\u8bad\u7ec3\u76ee\u6807\u4e0e\u8bba\u6587\u53d9\u4e8b\u4e00\u81f4",
+        "\u4e0d\u4f1a\u4f2a\u88c5\u6210\u5b8c\u6574\u8bad\u7ec3\u7cfb\u7edf"
+      ],
+      "artifacts": [
+        "src/ciept/train/",
+        "configs/"
+      ],
+      "depends_on": [
+        "T006",
+        "T007"
+      ],
+      "id": "T008",
+      "notes": "\u5df2\u5b8c\u6210 confidence-weighted ListMLE\u3001toy train/eval engine\u3001toy metrics \u548c\u6700\u5c0f CLI\u3002S-DPO \u7b49\u53d8\u4f53\u4ecd\u4fdd\u7559\u4e3a appendix-only sanity check\u3002",
+      "priority": 8,
+      "status": "done",
+      "summary": "\u5efa\u7acb confidence-weighted ListMLE \u4e3a\u4e3b\u7684\u8bad\u7ec3\u5165\u53e3\uff0c\u5e76\u7ea6\u675f appendix-only \u7684\u9644\u5c5e\u53d8\u4f53\u3002",
+      "title": "\u4e3b\u6392\u5e8f\u76ee\u6807\u4e0e\u8bad\u7ec3\u5165\u53e3\u9aa8\u67b6"
+    },
+    {
+      "acceptance_criteria": [
+        "\u8986\u76d6 10/30/50 \u4e09\u6863\u6270\u52a8\u5f3a\u5ea6",
+        "\u8f93\u51fa nuisance_mask \u53ca\u534f\u8bae\u5143\u6570\u636e",
+        "\u4fdd\u7559\u4eba\u5de5\u590d\u6838\u5165\u53e3"
+      ],
+      "artifacts": [
+        "src/ciept/data/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T002",
+        "T003"
+      ],
+      "id": "T009",
+      "notes": "\u5df2\u5b8c\u6210 positive nuisance / negative lure \u79bb\u7ebf\u534f\u8bae\u3001JSONL \u8f93\u51fa\u3001nuisance mask\u3001summary \u548c review queue\u3002",
+      "priority": 9,
+      "status": "done",
+      "summary": "\u5b9e\u73b0 positive-preserving nuisance \u4e0e negative-preserving lure \u7684\u79bb\u7ebf\u6270\u52a8\u534f\u8bae\u548c mask \u8f93\u51fa\u3002",
+      "title": "Conflict Stress Test \u4e0e Lure/Nuisance \u6270\u52a8\u534f\u8bae"
+    },
+    {
+      "acceptance_criteria": [
+        "\u652f\u6301\u5ba1\u8ba1\u6837\u672c\u5bfc\u51fa",
+        "\u652f\u6301 VLM \u9884\u6807\u6ce8\u7ed3\u679c\u5199\u56de",
+        "\u652f\u6301\u4eba\u5de5\u4ef2\u88c1\u4e0e\u4e00\u81f4\u6027\u7edf\u8ba1\u5360\u4f4d"
+      ],
+      "artifacts": [
+        "src/ciept/audit/",
+        "data/"
+      ],
+      "depends_on": [
+        "T002",
+        "T009"
+      ],
+      "id": "T010",
+      "notes": "\u5df2\u5b8c\u6210 audit examples\u3001VLM request/export merge \u534f\u8bae\u3001annotated audit records \u548c adjudication queue \u521d\u59cb\u5316\u3002",
+      "priority": 10,
+      "status": "done",
+      "summary": "\u6784\u5efa VLM \u9884\u6807\u6ce8\u548c\u4eba\u5de5\u53cc\u76f2\u4ef2\u88c1\u7684\u6570\u636e\u7ed3\u6784\u4e0e\u5bfc\u51fa\u6d41\u7a0b\u3002",
+      "title": "VLM \u5ba1\u8ba1\u96c6\u4e0e\u4eba\u5de5\u4ef2\u88c1\u6d41\u6c34\u7ebf"
+    },
+    {
+      "acceptance_criteria": [
+        "\u4e3b\u6392\u5e8f\u6307\u6807\u53ef\u6279\u91cf\u8ba1\u7b97",
+        "faithfulness \u6307\u6807\u4e0e\u5bb9\u91cf prior \u8bed\u4e49\u4e00\u81f4",
+        "usage diagnosis \u6307\u6807\u53ef\u5355\u72ec\u8fd0\u884c"
+      ],
+      "artifacts": [
+        "src/ciept/metrics/",
+        "tests/"
+      ],
+      "depends_on": [
+        "T007",
+        "T009",
+        "T010"
+      ],
+      "id": "T011",
+      "notes": "\u5df2\u5b8c\u6210 ranking\u3001faithfulness\u3001usage diagnosis \u6307\u6807\u516c\u5f0f\u5305\uff0c\u663e\u8457\u6027\u68c0\u9a8c\u4ecd\u4fdd\u7559\u7ed9\u540e\u7eed\u5b9e\u9a8c runner\u3002",
+      "priority": 11,
+      "status": "done",
+      "summary": "\u5b9e\u73b0 ranking metrics\u3001Leakage Ratio\u3001SupportF1\u3001Image Shuffle Drop \u7b49\u8bc4\u4f30\u63a5\u53e3\u3002",
+      "title": "\u6392\u5e8f\u3001Faithfulness \u4e0e Usage Diagnosis \u6307\u6807\u5305"
+    },
+    {
+      "acceptance_criteria": [
+        "\u5b58\u5728\u5206\u5b9e\u9a8c runner",
+        "\u5b58\u5728\u7edf\u4e00\u7ed3\u679c\u76ee\u5f55\u4e0e\u547d\u540d\u89c4\u5219",
+        "\u652f\u6301 5 seeds \u7edf\u8ba1\u7684\u5360\u4f4d\u6d41\u7a0b"
+      ],
+      "artifacts": [
+        "src/ciept/experiments/",
+        "scripts/"
+      ],
+      "depends_on": [
+        "T008",
+        "T011"
+      ],
+      "id": "T012",
+      "notes": "\u5df2\u5b8c\u6210\u7edf\u4e00 experiment dispatcher\u3001\u5206\u5b9e\u9a8c toy modules\u3001results \u76ee\u5f55\u534f\u8bae\uff0c\u4ee5\u53ca metrics.json/summary.md \u5199\u76d8\u6a21\u677f\u3002",
+      "priority": 12,
+      "status": "done",
+      "summary": "\u5efa\u7acb\u4e3b\u7ed3\u679c\u3001\u9c81\u68d2\u66f2\u7ebf\u3001faithfulness\u3001\u673a\u5236\u6d88\u878d\u3001usage diagnosis\u3001\u6548\u7387\u8bc4\u6d4b\u7684\u8fd0\u884c\u5165\u53e3\u548c\u7ed3\u679c\u843d\u76d8\u683c\u5f0f\u3002",
+      "title": "\u4e3b\u5b9e\u9a8c Runner \u4e0e\u7ed3\u679c\u6a21\u677f"
+    },
+    {
+      "acceptance_criteria": [
+        "\u5b58\u5728\u7ed3\u679c\u6c47\u603b\u6a21\u677f",
+        "\u5b58\u5728 case study \u53ef\u89c6\u5316\u5bfc\u51fa\u7ea6\u5b9a",
+        "\u5b58\u5728\u5b9e\u9a8c checklist \u4e0e\u98ce\u9669\u56de\u987e\u5165\u53e3"
+      ],
+      "artifacts": [
+        "docs/",
+        "results/"
+      ],
+      "depends_on": [
+        "T012"
+      ],
+      "id": "T013",
+      "notes": "\u5df2\u5b8c\u6210 delivery bundle\u3001\u7ed3\u679c\u7d22\u5f15\u3001\u590d\u73b0\u6e05\u5355\u3001\u8d44\u6e90\u4e0b\u8f7d\u6e05\u5355\u548c\u5bf9\u7167 aaai\u9879\u76ee.md \u7684\u5b9e\u73b0\u8bc4\u4f30\u3002\u8bba\u6587\u6b63\u6587\u4ecd\u672a\u5f00\u59cb\u3002",
+      "priority": 13,
+      "status": "done",
+      "summary": "\u6574\u7406\u65b9\u6cd5\u56fe\u3001\u8868\u683c\u6a21\u677f\u3001case study \u8f93\u51fa\u4e0e\u6700\u7ec8\u4ea4\u4ed8\u6e05\u5355\u3002",
+      "title": "\u8bba\u6587\u4ea4\u4ed8\u7269\u4e0e\u590d\u73b0\u6e05\u5355"
+    }
+  ]
+}

@@ -149,6 +149,18 @@ It stays provider-agnostic and file-based, so a concrete VLM can be plugged in l
 
 It standardizes experiment outputs without pretending the current runs are real benchmark results.
 
+## Delivery Bundle
+
+`T013` adds a delivery/export layer that writes:
+
+- manifest and task snapshots
+- result indexes
+- reproducibility checklist and entrypoint index
+- required datasets/models/baselines inventory
+- implementation review against `aaai项目.md`
+
+This is the current handoff package while real datasets, VLMs, and baseline integrations remain deferred.
+
 ## Metrics Layer
 
 `T011` adds a reusable metrics package for:

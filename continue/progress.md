@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 13:04 UTC - T013
+
+- Goal: Build a reproducible delivery bundle that snapshots the repository state, indexes results, lists required external assets, and reviews current implementation coverage against `aaai项目.md`.
+- Changes: Added `src/ciept/delivery/` with manifest export, results indexing, resource inventory generation, implementation review generation, and a delivery CLI. Also replaced the local `graph.adapters.to_tensor_views()` placeholder with a real tensor-view adapter.
+- Verification: `python -m pytest tests/test_graph_adapters.py tests/test_delivery_bundle.py -v`; final full-suite verification pending before commit.
+- Risks/Next: External datasets, VLMs, and baseline methods still need to be downloaded and integrated; those are now explicitly listed in the delivery bundle.
+
 ## 2026-03-10 12:49 UTC - T012
 
 - Goal: Add a dispatcher-based experiment runner that standardizes result directories and per-experiment outputs.

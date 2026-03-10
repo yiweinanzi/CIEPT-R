@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T013",
+  "current_focus": "complete_pending_external_assets",
   "tasks": [
     {
       "id": "T001",
@@ -261,7 +261,7 @@
     {
       "id": "T013",
       "title": "论文交付物与复现清单",
-      "status": "pending",
+      "status": "done",
       "priority": 13,
       "depends_on": [
         "T012"
@@ -276,7 +276,7 @@
         "docs/",
         "results/"
       ],
-      "notes": "服务于 AAAI/SIGIR 投稿收敛，不替代实验本身。"
+      "notes": "已完成 delivery bundle、结果索引、复现清单、资源下载清单和对照 aaai项目.md 的实现评估。论文正文仍未开始。"
     }
   ]
 }
