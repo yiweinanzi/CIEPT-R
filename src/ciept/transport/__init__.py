@@ -2,9 +2,18 @@
 
 from ciept.transport.sanity import check_capacity_constraints, check_reject_semantics
 from ciept.transport.toy_solver import solve_partial_transport
-from ciept.transport.types import TransportProblem, TransportResult
+from ciept.transport.reranker import CapacityCalibratedPartialTransportReranker
+from ciept.transport.types import (
+    RerankerInputs,
+    RerankerOutputs,
+    TransportProblem,
+    TransportResult,
+)
 
 __all__ = [
+    "CapacityCalibratedPartialTransportReranker",
+    "RerankerInputs",
+    "RerankerOutputs",
     "TransportProblem",
     "TransportResult",
     "solve_partial_transport",

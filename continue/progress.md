@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 11:29 UTC - T006
+
+- Goal: Introduce a torch-based reranker skeleton that turns cost, `source_mass`, `target_capacity`, and `mass_budget` into a real transport-based forward pass.
+- Changes: Extended `src/ciept/transport/` with torch-native reranker inputs/outputs, pairwise feature costs, capacity penalties, a partial-transport projection operator, and a `CapacityCalibratedPartialTransportReranker` that emits a scalar score plus transport diagnostics. Added `torch` to the dependency surface and installed it in the active environment for this task.
+- Verification: `python -m pytest tests/test_reranker_forward.py tests/test_reranker_validation.py -v`; `python -m pytest tests/test_persistence.py::test_t006_marked_done_and_t007_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T007` with normalized support and intervention logic, reusing this reranker as the model-side transport entrypoint.
+
 ## 2026-03-10 11:12 UTC - T005
 
 - Goal: Validate partial transport semantics with a NumPy toy solver before attempting a larger reranker.

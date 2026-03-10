@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T006",
+  "current_focus": "T007",
   "tasks": [
     {
       "id": "T001",
@@ -113,7 +113,7 @@
     {
       "id": "T006",
       "title": "Capacity-Calibrated Partial Transport Reranker",
-      "status": "pending",
+      "status": "done",
       "priority": 6,
       "depends_on": [
         "T005"
@@ -129,7 +129,7 @@
         "src/ciept/models/",
         "tests/"
       ],
-      "notes": "Gromov 项只是结构正则，不是 headline。"
+      "notes": "已完成 torch 前向骨架、feature cost、capacity penalty、partial transport operator 和最小 reranker 输出路径。Gromov 项仍然保留在后续任务。"
     },
     {
       "id": "T007",

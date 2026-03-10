@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+import torch
 
 
 @dataclass(frozen=True)
@@ -25,3 +26,20 @@ class TransportResult:
     target_usage: np.ndarray
     target_slack: np.ndarray
     iterations: int
+
+
+@dataclass(frozen=True)
+class RerankerInputs:
+    user_nodes: torch.Tensor
+    item_nodes: torch.Tensor
+    source_mass: torch.Tensor
+    target_capacity: torch.Tensor
+    mass_budget: torch.Tensor | float
+
+
+@dataclass(frozen=True)
+class RerankerOutputs:
+    score: torch.Tensor
+    plan: torch.Tensor
+    transported_mass: torch.Tensor
+    target_usage: torch.Tensor

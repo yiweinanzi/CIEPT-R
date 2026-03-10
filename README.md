@@ -9,6 +9,7 @@ The current milestone is intentionally narrow:
 - create a Python research repository skeleton
 - persist agent workflow and task state under `continue/`
 - provide a minimal config loader, data protocol, priors, and transport sanity-check tools
+- provide a minimal config loader, data protocol, priors, transport sanity checks, and a torch reranker skeleton
 - make bootstrap verification reproducible
 
 This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
@@ -60,9 +61,9 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T006`: capacity-calibrated partial transport reranker
 - `T007`: normalized support intervention and leakage ratio
 - `T008`: ranking objective and training entrypoints
+- `T009`: conflict stress-test and nuisance/lure protocol
 
 ## Graph Layer
 
@@ -95,3 +96,14 @@ This layer is intentionally metadata-driven and keeps learned heads out of scope
 - explicit reject-mass reporting
 
 It is intentionally a semantic sanity-check layer, not the final research solver.
+
+## Reranker Layer
+
+`T006` adds a torch-based reranker layer that introduces:
+
+- pairwise feature-cost construction
+- capacity-driven reliability penalties
+- a torch partial-transport operator
+- a scalar score derived from the transport plan
+
+This is intentionally a minimal forward skeleton, not the final research solver.
