@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 11:52 UTC - T008
+
+- Goal: Add a minimal but executable training/evaluation path that connects reranking, intervention loss, and the main ranking objective.
+- Changes: Added `src/ciept/train/` and `src/ciept/eval/` with `confidence-weighted ListMLE`, toy batch generation, a train step, an eval step, simple ranking metrics, and a CLI for `train`/`eval` modes.
+- Verification: `python -m pytest tests/test_train_losses.py tests/test_train_engine.py -v`; `python -m pytest tests/test_train_cli.py tests/test_persistence.py::test_t008_marked_done_and_t009_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T009` with the conflict stress-test and nuisance/lure perturbation protocol on top of the now-runnable toy train/eval loop.
+
 ## 2026-03-10 11:40 UTC - T007
 
 - Goal: Add the first trainable-style intervention layer on top of transport outputs, centered on normalized support and leakage-ratio diagnostics.

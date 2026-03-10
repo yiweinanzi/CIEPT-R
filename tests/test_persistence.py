@@ -59,4 +59,11 @@ def test_t007_marked_done_and_t008_selected_next():
     task = next(task for task in data["tasks"] if task["id"] == "T007")
 
     assert task["status"] == "done"
-    assert data["current_focus"] == "T008"
+
+
+def test_t008_marked_done_and_t009_selected_next():
+    data = json.loads(Path("continue/task.json").read_text())
+    task = next(task for task in data["tasks"] if task["id"] == "T008")
+
+    assert task["status"] == "done"
+    assert data["current_focus"] == "T009"

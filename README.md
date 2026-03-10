@@ -118,3 +118,14 @@ This is intentionally a minimal forward skeleton, not the final research solver.
 - a single-pass intervention loss
 
 This layer is intentionally modular and not yet wired into a full training loop.
+
+## Training Entrypoint
+
+`T008` adds a minimal `src/ciept/train/` and `src/ciept/eval/` path that can:
+
+- run one toy train step with `confidence-weighted ListMLE`
+- add intervention loss on the positive path
+- run one toy eval step with `Recall@1` and `MRR`
+- expose both flows through `python -m ciept.train.cli --mode train|eval`
+
+This is intentionally a toy executable path, not a full experiment framework.

@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T008",
+  "current_focus": "T009",
   "tasks": [
     {
       "id": "T001",
@@ -155,7 +155,7 @@
     {
       "id": "T008",
       "title": "主排序目标与训练入口骨架",
-      "status": "pending",
+      "status": "done",
       "priority": 8,
       "depends_on": [
         "T006",
@@ -171,7 +171,7 @@
         "src/ciept/train/",
         "configs/"
       ],
-      "notes": "S-DPO 等变体只保留为后续 appendix sanity check。"
+      "notes": "已完成 confidence-weighted ListMLE、toy train/eval engine、toy metrics 和最小 CLI。S-DPO 等变体仍保留为 appendix-only sanity check。"
     },
     {
       "id": "T009",
