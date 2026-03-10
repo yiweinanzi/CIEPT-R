@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T007",
+  "current_focus": "T008",
   "tasks": [
     {
       "id": "T001",
@@ -134,7 +134,7 @@
     {
       "id": "T007",
       "title": "Normalized Support 干预层与 Leakage Ratio",
-      "status": "pending",
+      "status": "done",
       "priority": 7,
       "depends_on": [
         "T005",
@@ -150,7 +150,7 @@
         "src/ciept/audit/",
         "tests/"
       ],
-      "notes": "这是反事实忠实度主线的核心桥梁。"
+      "notes": "已完成 normalized support、support logits、binary Gumbel/STE gating、leakage ratio 和 single-pass intervention loss。"
     },
     {
       "id": "T008",

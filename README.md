@@ -8,8 +8,7 @@ The current milestone is intentionally narrow:
 
 - create a Python research repository skeleton
 - persist agent workflow and task state under `continue/`
-- provide a minimal config loader, data protocol, priors, and transport sanity-check tools
-- provide a minimal config loader, data protocol, priors, transport sanity checks, and a torch reranker skeleton
+ - provide a minimal config loader, data protocol, priors, transport sanity checks, a torch reranker skeleton, and intervention utilities
 - make bootstrap verification reproducible
 
 This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
@@ -61,9 +60,9 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T007`: normalized support intervention and leakage ratio
 - `T008`: ranking objective and training entrypoints
 - `T009`: conflict stress-test and nuisance/lure protocol
+- `T010`: VLM audit set and adjudication pipeline
 
 ## Graph Layer
 
@@ -107,3 +106,15 @@ It is intentionally a semantic sanity-check layer, not the final research solver
 - a scalar score derived from the transport plan
 
 This is intentionally a minimal forward skeleton, not the final research solver.
+
+## Intervention Layer
+
+`T007` adds a lightweight `src/ciept/audit/` package with:
+
+- capacity-normalized support
+- support-to-logit conversion
+- binary Gumbel/STE gating
+- leakage-ratio diagnostics
+- a single-pass intervention loss
+
+This layer is intentionally modular and not yet wired into a full training loop.

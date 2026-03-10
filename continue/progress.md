@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 11:40 UTC - T007
+
+- Goal: Add the first trainable-style intervention layer on top of transport outputs, centered on normalized support and leakage-ratio diagnostics.
+- Changes: Added `src/ciept/audit/` with support normalization, support logits, binary Gumbel/STE gating, ratio-based leakage, a lightweight scorer, and a single-pass intervention loss that returns gate, counterfactual scores, and component losses.
+- Verification: `python -m pytest tests/test_audit_support.py tests/test_audit_gating.py -v`; `python -m pytest tests/test_audit_losses.py tests/test_persistence.py::test_t007_marked_done_and_t008_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T008` with ranking/training entrypoints that can consume the new reranker and intervention modules.
+
 ## 2026-03-10 11:29 UTC - T006
 
 - Goal: Introduce a torch-based reranker skeleton that turns cost, `source_mass`, `target_capacity`, and `mass_budget` into a real transport-based forward pass.
