@@ -8,7 +8,7 @@ The current milestone is intentionally narrow:
 
 - create a Python research repository skeleton
 - persist agent workflow and task state under `continue/`
- - provide a minimal config loader, data protocol, priors, transport sanity checks, a torch reranker skeleton, and intervention utilities
+- provide a minimal config loader, data protocol, priors, transport sanity checks, a torch reranker skeleton, intervention utilities, and conflict-stress protocol tooling
 - make bootstrap verification reproducible
 
 This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
@@ -60,9 +60,9 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T008`: ranking objective and training entrypoints
-- `T009`: conflict stress-test and nuisance/lure protocol
 - `T010`: VLM audit set and adjudication pipeline
+- `T011`: ranking, faithfulness, and usage-diagnosis metrics
+- `T012`: experiment runners and result templates
 
 ## Graph Layer
 
@@ -118,6 +118,26 @@ This is intentionally a minimal forward skeleton, not the final research solver.
 - a single-pass intervention loss
 
 This layer is intentionally modular and not yet wired into a full training loop.
+
+## Conflict Stress Protocol
+
+`T009` adds an offline conflict-stress pipeline that:
+
+- generates positive-preserving nuisance and negative-preserving lure examples
+- writes artifacts under `data/interim/`
+- emits nuisance masks, protocol summaries, and review queues
+
+This stays at the structured-node level and does not perform real image processing.
+
+## Conflict Stress Protocol
+
+`T009` adds an offline conflict-stress pipeline that:
+
+- generates positive-preserving nuisance and negative-preserving lure examples
+- writes artifacts under `data/interim/`
+- emits nuisance masks, protocol summaries, and review queues
+
+This stays at the structured-node level and does not perform real image processing.
 
 ## Training Entrypoint
 

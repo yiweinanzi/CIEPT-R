@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 12:02 UTC - T009
+
+- Goal: Add a protocol-driven offline conflict stress-test pipeline that generates nuisance/lure artifacts and review metadata.
+- Changes: Extended `src/ciept/data/` with perturbation schemas, positive-preserving nuisance rules, negative-preserving lure rules, a JSONL-based offline pipeline, and a CLI that writes perturbed examples, nuisance masks, protocol summaries, and review queues under `data/interim/`.
+- Verification: `python -m pytest tests/test_conflict_stress_rules.py -v`; `python -m pytest tests/test_conflict_stress_pipeline.py tests/test_persistence.py::test_t009_marked_done_and_t010_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T010` with VLM audit-set structures that can consume the perturbation artifacts written here.
+
 ## 2026-03-10 11:52 UTC - T008
 
 - Goal: Add a minimal but executable training/evaluation path that connects reranking, intervention loss, and the main ranking objective.

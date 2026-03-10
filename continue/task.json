@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T009",
+  "current_focus": "T010",
   "tasks": [
     {
       "id": "T001",
@@ -176,7 +176,7 @@
     {
       "id": "T009",
       "title": "Conflict Stress Test 与 Lure/Nuisance 扰动协议",
-      "status": "pending",
+      "status": "done",
       "priority": 9,
       "depends_on": [
         "T002",
@@ -192,7 +192,7 @@
         "src/ciept/data/",
         "tests/"
       ],
-      "notes": "这是鲁棒性与 faithful diagnosis 的关键实验基础。"
+      "notes": "已完成 positive nuisance / negative lure 离线协议、JSONL 输出、nuisance mask、summary 和 review queue。"
     },
     {
       "id": "T010",
