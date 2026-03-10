@@ -60,8 +60,9 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T012`: experiment runners and result templates
-- `T013`: final delivery artifacts and paper-facing exports
+- `B002`: RecBole dataset bridge and shared baseline runner
+- `B003`: LightGCN baseline integration
+- `B004`: VBPR baseline integration
 
 ## Graph Layer
 
@@ -160,6 +161,20 @@ It standardizes experiment outputs without pretending the current runs are real 
 - implementation review against `aaai项目.md`
 
 This is the current handoff package while real datasets, VLMs, and baseline integrations remain deferred.
+
+## Baseline Integration
+
+The repository now tracks baseline work separately from the core `T00x` research task chain.
+
+- `src/ciept/baselines/` records downloaded baselines and their mapping status
+- RecBole is treated as an auxiliary framework for baseline/evaluation alignment
+- the core `ciept` research implementation remains independent from RecBole
+
+Current baseline classes are:
+
+- direct matches ready for future integration
+- mapped candidates needing manual paper mapping
+- missing baselines still to acquire
 
 ## Metrics Layer
 

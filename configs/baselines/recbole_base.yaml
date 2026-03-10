@@ -1,0 +1,11 @@
+eval_args:
+  order: TO
+  mode: full
+repeatable: true
+metrics:
+  - Recall
+  - NDCG
+  - MRR
+topk:
+  - 10
+  - 20

@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
-  "last_updated": "2026-03-10",
-  "current_focus": "complete_pending_external_assets",
+  "last_updated": "2026-03-11",
+  "current_focus": "B002",
   "tasks": [
     {
       "id": "T001",
@@ -277,6 +277,226 @@
         "results/"
       ],
       "notes": "已完成 delivery bundle、结果索引、复现清单、资源下载清单和对照 aaai项目.md 的实现评估。论文正文仍未开始。"
+    },
+    {
+      "id": "B001",
+      "title": "Baseline Inventory 与 RecBole Bootstrap",
+      "status": "done",
+      "priority": 14,
+      "depends_on": [
+        "T013"
+      ],
+      "summary": "盘点已下载 baseline，建立 direct/mapped/missing 清单，并接入 RecBole 辅助层。",
+      "acceptance_criteria": [
+        "存在 baseline inventory 与映射清单",
+        "存在 RecBole 辅助配置生成层",
+        "baseline 任务轨已加入 task 系统"
+      ],
+      "artifacts": [
+        "src/ciept/baselines/",
+        "configs/baselines/"
+      ],
+      "notes": "已完成 direct_match / mapped_candidate / missing 的基线盘点和 RecBole 配置引导。"
+    },
+    {
+      "id": "B002",
+      "title": "RecBole 数据桥接与统一 Baseline Runner",
+      "status": "pending",
+      "priority": 15,
+      "depends_on": [
+        "B001"
+      ],
+      "summary": "建立 RecBole 读入 presplit 数据和统一 baseline runner 的桥接层。",
+      "acceptance_criteria": [
+        "存在 RecBole dataset bridge",
+        "存在统一 baseline runner 入口",
+        "不侵入 ciept 核心研究模块"
+      ],
+      "artifacts": [
+        "src/ciept/baselines/",
+        "configs/baselines/"
+      ],
+      "notes": "这是所有 baseline 真正跑起来之前的桥接任务。"
+    },
+    {
+      "id": "B003",
+      "title": "LightGCN Baseline 接入",
+      "status": "pending",
+      "priority": 16,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 LightGCN baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/LightGCN-master.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B004",
+      "title": "VBPR Baseline 接入",
+      "status": "pending",
+      "priority": 17,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 VBPR baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/VBPR-PyTorch-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B005",
+      "title": "BM3 Baseline 接入",
+      "status": "pending",
+      "priority": 18,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 BM3 baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/BM3-master.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B006",
+      "title": "MGCN Baseline 接入",
+      "status": "pending",
+      "priority": 19,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 MGCN baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/MGCN-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B007",
+      "title": "I3-MRec Baseline 接入",
+      "status": "pending",
+      "priority": 20,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 I3-MRec baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/I3-MRec-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B008",
+      "title": "CLEAR Baseline 接入",
+      "status": "pending",
+      "priority": 21,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 CLEAR baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/CLEAR-replication-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B009",
+      "title": "Training-free Graph-based Imputation 接入",
+      "status": "pending",
+      "priority": 22,
+      "depends_on": [
+        "B002"
+      ],
+      "summary": "接入 Training-free Graph-based Imputation baseline 并导出统一结果格式。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/Graph-Missing-Modalities-TKDE-master.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "direct_match"
+    },
+    {
+      "id": "B010",
+      "title": "Candidate Baselines 映射确认",
+      "status": "pending",
+      "priority": 23,
+      "depends_on": [
+        "B001"
+      ],
+      "summary": "确认 DiffMM、Guider、MAGNET、MixRec、SMORE 与项目文档中的方法映射关系。",
+      "acceptance_criteria": [
+        "给出每个候选 baseline 的 paper_mapping 结论",
+        "区分可纳入主对比与仅候选参考"
+      ],
+      "artifacts": [
+        "baselines/DiffMM-main.zip",
+        "baselines/Guider-main.zip",
+        "baselines/MAGNET-main.zip",
+        "baselines/MixRec-main.zip",
+        "baselines/SMORE-main.zip"
+      ],
+      "notes": "mapped_candidate"
+    },
+    {
+      "id": "B011",
+      "title": "缺失 Baselines 获取跟踪",
+      "status": "pending",
+      "priority": 24,
+      "depends_on": [
+        "B001"
+      ],
+      "summary": "跟踪 RecGOAT、IGDMRec、Modality-Guided Mixture of Graph Experts、Teach Me How to Denoise 的获取状态。",
+      "acceptance_criteria": [
+        "缺失项有明确状态记录",
+        "后续下载/接入路径明确"
+      ],
+      "artifacts": [
+        "deliverables/current/required_assets.md"
+      ],
+      "notes": "missing"
     }
   ]
 }

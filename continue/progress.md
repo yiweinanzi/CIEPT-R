@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-11 00:10 UTC - B001
+
+- Goal: Inventory downloaded baselines, classify direct/mapped/missing assets, and bootstrap a RecBole helper layer without changing the core `ciept` research stack.
+- Changes: Added `src/ciept/baselines/` with baseline inventory classification and RecBole config helpers, added `configs/baselines/recbole_base.yaml`, and expanded `continue/task.json` with a baseline integration track `B001-B011`.
+- Verification: `python -m pytest tests/test_baseline_registry.py tests/test_recbole_adapter.py -v`; `python -m pytest tests/test_persistence.py::test_b001_baseline_inventory_task_marked_done -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `B002` with a real RecBole dataset bridge and unified baseline runner before integrating baselines one by one.
+
 ## 2026-03-10 13:04 UTC - T013
 
 - Goal: Build a reproducible delivery bundle that snapshots the repository state, indexes results, lists required external assets, and reviews current implementation coverage against `aaai项目.md`.

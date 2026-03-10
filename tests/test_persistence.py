@@ -101,3 +101,11 @@ def test_t013_marked_done_after_delivery_bundle_generation():
     task = next(task for task in data["tasks"] if task["id"] == "T013")
 
     assert task["status"] == "done"
+
+
+def test_b001_baseline_inventory_task_marked_done():
+    data = json.loads(Path("continue/task.json").read_text())
+    task = next(task for task in data["tasks"] if task["id"] == "B001")
+
+    assert task["status"] == "done"
+    assert any(item["id"] == "B002" for item in data["tasks"])
