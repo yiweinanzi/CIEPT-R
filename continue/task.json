@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T005",
+  "current_focus": "T006",
   "tasks": [
     {
       "id": "T001",
@@ -92,7 +92,7 @@
     {
       "id": "T005",
       "title": "Toy Partial Transport 与 Reject Semantics Sanity Check",
-      "status": "pending",
+      "status": "done",
       "priority": 5,
       "depends_on": [
         "T003",
@@ -108,7 +108,7 @@
         "src/ciept/transport/",
         "tests/"
       ],
-      "notes": "在完整算子前先确保科学问题定义站得住。"
+      "notes": "已完成 NumPy toy partial transport、budget/capacity/reject semantic checks，以及 hand-crafted toy cases。"
     },
     {
       "id": "T006",

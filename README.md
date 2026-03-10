@@ -8,7 +8,7 @@ The current milestone is intentionally narrow:
 
 - create a Python research repository skeleton
 - persist agent workflow and task state under `continue/`
-- provide a minimal config loader, data protocol, and CLI tools
+- provide a minimal config loader, data protocol, priors, and transport sanity-check tools
 - make bootstrap verification reproducible
 
 This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
@@ -60,9 +60,9 @@ PYTHONPATH=src python -m ciept.data.cli \
 
 ## Planned Next Tasks
 
-- `T003`: evidence graph and topology cache interfaces
-- `T004`: reliability prior, capacity prior, and nuisance mask interfaces
-- `T005`: toy partial transport sanity check
+- `T006`: capacity-calibrated partial transport reranker
+- `T007`: normalized support intervention and leakage ratio
+- `T008`: ranking objective and training entrypoints
 
 ## Graph Layer
 
@@ -85,3 +85,13 @@ The graph layer intentionally does not parse raw items or import `torch` yet.
 - nuisance-mask inference with explicit-label precedence and heuristic fallback
 
 This layer is intentionally metadata-driven and keeps learned heads out of scope.
+
+## Transport Sanity Layer
+
+`T005` adds a NumPy-based `src/ciept/transport/` toy solver for:
+
+- partial mass-budget enforcement
+- target-capacity enforcement
+- explicit reject-mass reporting
+
+It is intentionally a semantic sanity-check layer, not the final research solver.

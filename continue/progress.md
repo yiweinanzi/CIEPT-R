@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 11:12 UTC - T005
+
+- Goal: Validate partial transport semantics with a NumPy toy solver before attempting a larger reranker.
+- Changes: Added `src/ciept/transport/` with typed transport problems/results, an iterative partial-projection mini-solver, and semantic helpers for capacity constraints and reject-mass checks.
+- Verification: `python -m pytest tests/test_transport_solver.py -v`; `python -m pytest tests/test_transport_sanity.py tests/test_persistence.py::test_t005_marked_done_and_t006_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T006` with a larger transport reranker, reusing the toy solver behavior as a semantic regression baseline.
+
 ## 2026-03-10 10:56 UTC - T004
 
 - Goal: Build a runnable heuristic prior layer for reliability, capacity priors, and nuisance masks on top of the graph boundary.
