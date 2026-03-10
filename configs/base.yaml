@@ -6,5 +6,28 @@ paths:
   root: .
   docs: docs
   configs: configs
+  data: data
+  raw_data: data/raw
+  interim_data: data/interim
+  processed_data: data/processed
   src: src
   tests: tests
+
+data_protocol:
+  split_strategy: global_temporal_80_10_10
+  train_ratio: 0.8
+  valid_ratio: 0.1
+  test_ratio: 0.1
+  min_user_degree: 5
+  min_item_degree: 5
+  keep_missing_modalities: true
+  setting: transductive
+  cold_start_policy: report_separately
+
+datasets:
+  primary_benchmark:
+    name: amazon_reviews_2023
+    categories:
+      - Clothing_Shoes_and_Jewelry
+      - Sports_and_Outdoors
+      - Beauty_and_Personal_Care

@@ -8,7 +8,7 @@ The current milestone is intentionally narrow:
 
 - create a Python research repository skeleton
 - persist agent workflow and task state under `continue/`
-- provide a minimal config loader and CLI
+- provide a minimal config loader, data protocol, and CLI tools
 - make bootstrap verification reproducible
 
 This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
@@ -19,6 +19,7 @@ This repository does **not** yet implement dataset preprocessing, partial transp
 - `configs/`: project configuration files
 - `continue/`: persistent agent instructions, tasks, and progress logs
 - `docs/superpowers/`: design and implementation plans
+- `data/`: raw/interim/processed dataset layout and processed artifacts
 - `scripts/`: verification scripts
 - `src/ciept/`: Python package bootstrap
 - `tests/`: bootstrap tests
@@ -34,9 +35,31 @@ Future agent sessions should:
 5. update `continue/progress.md`
 6. commit the completed task once
 
+## Data Protocol
+
+`T002` establishes the initial offline data contract:
+
+- source downloads live under `data/raw/`
+- temporary preprocessing artifacts live under `data/interim/`
+- reproducible split outputs live under `data/processed/`
+- temporal splitting is global absolute-time `80/10/10`
+- iterative k-core filtering happens before the split
+- items with missing modalities are retained and recorded with explicit flags
+- main training is transductive; cold-start is reported separately
+
+Example preprocessing entrypoint:
+
+```bash
+PYTHONPATH=src python -m ciept.data.cli \
+  --interactions data/raw/<dataset>/interactions.csv \
+  --items data/raw/<dataset>/items.csv \
+  --output-dir data/processed/<dataset> \
+  --min-user-degree 5 \
+  --min-item-degree 5
+```
+
 ## Planned Next Tasks
 
-- `T002`: data directory conventions and dataset sanity checks
 - `T003`: evidence graph and topology cache interfaces
-- `T004`: toy partial transport sanity check
-- `T005`: training and evaluation entrypoints
+- `T004`: reliability prior, capacity prior, and nuisance mask interfaces
+- `T005`: toy partial transport sanity check

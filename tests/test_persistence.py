@@ -17,4 +17,11 @@ def test_bootstrap_task_marked_done_after_verification():
     task = next(task for task in data["tasks"] if task["id"] == "T001")
 
     assert task["status"] == "done"
-    assert data["current_focus"] == "T002"
+
+
+def test_t002_marked_done_and_t003_selected_next():
+    data = json.loads(Path("continue/task.json").read_text())
+    task = next(task for task in data["tasks"] if task["id"] == "T002")
+
+    assert task["status"] == "done"
+    assert data["current_focus"] == "T003"

@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T002",
+  "current_focus": "T003",
   "tasks": [
     {
       "id": "T001",
@@ -30,7 +30,7 @@
     {
       "id": "T002",
       "title": "数据协议与全局时间切分",
-      "status": "pending",
+      "status": "done",
       "priority": 2,
       "depends_on": [
         "T001"
@@ -46,7 +46,7 @@
         "data/",
         "scripts/"
       ],
-      "notes": "RecBole 只读取离线切分结果，不负责主时间划分。"
+      "notes": "已完成基础目录规范、k-core + global split CLI 和 missing-modality 报告。RecBole 只读取离线切分结果，不负责主时间划分。"
     },
     {
       "id": "T003",
