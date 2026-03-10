@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-10",
-  "current_focus": "T010",
+  "current_focus": "T011",
   "tasks": [
     {
       "id": "T001",
@@ -197,7 +197,7 @@
     {
       "id": "T010",
       "title": "VLM 审计集与人工仲裁流水线",
-      "status": "pending",
+      "status": "done",
       "priority": 10,
       "depends_on": [
         "T002",
@@ -213,7 +213,7 @@
         "src/ciept/audit/",
         "data/"
       ],
-      "notes": "VLM 只做候选证据预标注，不直接充当最终金标准。"
+      "notes": "已完成 audit examples、VLM request/export merge 协议、annotated audit records 和 adjudication queue 初始化。"
     },
     {
       "id": "T011",

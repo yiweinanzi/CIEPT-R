@@ -129,6 +129,17 @@ This layer is intentionally modular and not yet wired into a full training loop.
 
 This stays at the structured-node level and does not perform real image processing.
 
+## Audit Dataset Protocol
+
+`T010` adds an audit-set protocol that:
+
+- builds `audit_examples.jsonl` from stress artifacts
+- exports `vlm_requests.jsonl`
+- merges external `vlm_predictions.jsonl` back into annotated records
+- initializes `adjudication_queue.jsonl`
+
+It stays provider-agnostic and file-based, so a concrete VLM can be plugged in later without rewriting the schema.
+
 ## Conflict Stress Protocol
 
 `T009` adds an offline conflict-stress pipeline that:

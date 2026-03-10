@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-03-10 12:15 UTC - T010
+
+- Goal: Add an audit-dataset protocol that can export samples for VLM pre-annotation, merge predictions back, and initialize human adjudication queues.
+- Changes: Extended `src/ciept/audit/` with audit dataset schemas, audit-example generation from stress artifacts, VLM request export, VLM prediction merge, adjudication queue initialization, and a file-based CLI for the full protocol.
+- Verification: `python -m pytest tests/test_audit_dataset.py -v`; `python -m pytest tests/test_audit_merge.py tests/test_persistence.py::test_t010_marked_done_and_t011_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `T011` with ranking, faithfulness, and usage-diagnosis metrics that can consume audit examples and adjudication artifacts.
+
 ## 2026-03-10 12:02 UTC - T009
 
 - Goal: Add a protocol-driven offline conflict stress-test pipeline that generates nuisance/lure artifacts and review metadata.
