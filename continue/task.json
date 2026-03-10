@@ -1,0 +1,282 @@
+{
+  "project": "CIEPT-R",
+  "last_updated": "2026-03-10",
+  "current_focus": "T002",
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "工程初始化与配置校验",
+      "status": "done",
+      "priority": 1,
+      "depends_on": [],
+      "summary": "把当前目录建立为最小可运行的 Python 研究工程，并完成基础验证。",
+      "acceptance_criteria": [
+        "存在 src/ciept Python 包骨架",
+        "存在 configs/base.yaml 且可被加载",
+        "CLI 可以打印项目摘要",
+        "pytest 与 scripts/check.sh 验证通过",
+        "continue/AGENT.MD、continue/progress.md、continue/task.json 已同步更新"
+      ],
+      "artifacts": [
+        "README.md",
+        "pyproject.toml",
+        "configs/base.yaml",
+        "src/ciept/",
+        "scripts/check.sh",
+        "tests/"
+      ],
+      "notes": "已完成。后续任务从数据协议和时间切分开始。"
+    },
+    {
+      "id": "T002",
+      "title": "数据协议与全局时间切分",
+      "status": "pending",
+      "priority": 2,
+      "depends_on": [
+        "T001"
+      ],
+      "summary": "把 aaai项目.md 中的全局 80/10/10 时间切分、iterative 5-core、缺失模态保留策略落实为数据协议与检查脚本。",
+      "acceptance_criteria": [
+        "定义 raw/interim/processed 目录规范",
+        "实现全局绝对时间切分脚本",
+        "明确 transductive 主设定与 cold-start 单独汇报",
+        "为 Amazon Reviews 2023 主基准保留入口"
+      ],
+      "artifacts": [
+        "data/",
+        "scripts/"
+      ],
+      "notes": "RecBole 只读取离线切分结果，不负责主时间划分。"
+    },
+    {
+      "id": "T003",
+      "title": "Evidence Graph 与块对角拓扑缓存骨架",
+      "status": "pending",
+      "priority": 3,
+      "depends_on": [
+        "T001",
+        "T002"
+      ],
+      "summary": "建立文本节点、视觉节点、块对角 topology cache 的接口层和最小可测试数据结构。",
+      "acceptance_criteria": [
+        "文本与视觉拓扑分别定义与归一化",
+        "跨模态块不承载几何边",
+        "存在 evidence graph/topology cache 的最小测试"
+      ],
+      "artifacts": [
+        "src/ciept/graph/",
+        "tests/"
+      ],
+      "notes": "先定义清晰边界，不提前堆复杂解析逻辑。"
+    },
+    {
+      "id": "T004",
+      "title": "Reliability Prior、Capacity Prior 与 Nuisance Mask",
+      "status": "pending",
+      "priority": 4,
+      "depends_on": [
+        "T003"
+      ],
+      "summary": "实现 reliability 信号汇总、capacity prior 计算和 nuisance mask 的数据接口。",
+      "acceptance_criteria": [
+        "支持 corroboration/stability/vulnerability 三类输入",
+        "生成 q_cap 与 nuisance mask",
+        "存在 clean 与 nuisance 节点分离的基础 sanity check"
+      ],
+      "artifacts": [
+        "src/ciept/priors/",
+        "tests/"
+      ],
+      "notes": "目标是语义对齐与可审计性，不是追求复杂模型。"
+    },
+    {
+      "id": "T005",
+      "title": "Toy Partial Transport 与 Reject Semantics Sanity Check",
+      "status": "pending",
+      "priority": 5,
+      "depends_on": [
+        "T003",
+        "T004"
+      ],
+      "summary": "用小规模样本验证 partial mass budget、capacity prior、reject semantics 的数值闭环。",
+      "acceptance_criteria": [
+        "存在 toy 输入与期望输出",
+        "能验证 transported mass budget 生效",
+        "能验证未运输质量具有 reject semantics"
+      ],
+      "artifacts": [
+        "src/ciept/transport/",
+        "tests/"
+      ],
+      "notes": "在完整算子前先确保科学问题定义站得住。"
+    },
+    {
+      "id": "T006",
+      "title": "Capacity-Calibrated Partial Transport Reranker",
+      "status": "pending",
+      "priority": 6,
+      "depends_on": [
+        "T005"
+      ],
+      "summary": "实现 feature cost、topology regularization、mass budget 与 q_cap 对齐的最小 reranker 前向流程。",
+      "acceptance_criteria": [
+        "p 和 q_cap 进入代码路径",
+        "质量预算与结构正则可配置",
+        "前向过程在小批量上稳定"
+      ],
+      "artifacts": [
+        "src/ciept/transport/",
+        "src/ciept/models/",
+        "tests/"
+      ],
+      "notes": "Gromov 项只是结构正则，不是 headline。"
+    },
+    {
+      "id": "T007",
+      "title": "Normalized Support 干预层与 Leakage Ratio",
+      "status": "pending",
+      "priority": 7,
+      "depends_on": [
+        "T005",
+        "T006"
+      ],
+      "summary": "实现 capacity-normalized support、single-pass intervention 和 leakage ratio 诊断。",
+      "acceptance_criteria": [
+        "support 先做 capacity normalization 再进 logit",
+        "Leakage 使用 ratio 而不是绝对总量",
+        "selected-only/selected-removed 路径可测"
+      ],
+      "artifacts": [
+        "src/ciept/audit/",
+        "tests/"
+      ],
+      "notes": "这是反事实忠实度主线的核心桥梁。"
+    },
+    {
+      "id": "T008",
+      "title": "主排序目标与训练入口骨架",
+      "status": "pending",
+      "priority": 8,
+      "depends_on": [
+        "T006",
+        "T007"
+      ],
+      "summary": "建立 confidence-weighted ListMLE 为主的训练入口，并约束 appendix-only 的附属变体。",
+      "acceptance_criteria": [
+        "存在 train CLI 或等价入口",
+        "主训练目标与论文叙事一致",
+        "不会伪装成完整训练系统"
+      ],
+      "artifacts": [
+        "src/ciept/train/",
+        "configs/"
+      ],
+      "notes": "S-DPO 等变体只保留为后续 appendix sanity check。"
+    },
+    {
+      "id": "T009",
+      "title": "Conflict Stress Test 与 Lure/Nuisance 扰动协议",
+      "status": "pending",
+      "priority": 9,
+      "depends_on": [
+        "T002",
+        "T003"
+      ],
+      "summary": "实现 positive-preserving nuisance 与 negative-preserving lure 的离线扰动协议和 mask 输出。",
+      "acceptance_criteria": [
+        "覆盖 10/30/50 三档扰动强度",
+        "输出 nuisance_mask 及协议元数据",
+        "保留人工复核入口"
+      ],
+      "artifacts": [
+        "src/ciept/data/",
+        "tests/"
+      ],
+      "notes": "这是鲁棒性与 faithful diagnosis 的关键实验基础。"
+    },
+    {
+      "id": "T010",
+      "title": "VLM 审计集与人工仲裁流水线",
+      "status": "pending",
+      "priority": 10,
+      "depends_on": [
+        "T002",
+        "T009"
+      ],
+      "summary": "构建 VLM 预标注和人工双盲仲裁的数据结构与导出流程。",
+      "acceptance_criteria": [
+        "支持审计样本导出",
+        "支持 VLM 预标注结果写回",
+        "支持人工仲裁与一致性统计占位"
+      ],
+      "artifacts": [
+        "src/ciept/audit/",
+        "data/"
+      ],
+      "notes": "VLM 只做候选证据预标注，不直接充当最终金标准。"
+    },
+    {
+      "id": "T011",
+      "title": "排序、Faithfulness 与 Usage Diagnosis 指标包",
+      "status": "pending",
+      "priority": 11,
+      "depends_on": [
+        "T007",
+        "T009",
+        "T010"
+      ],
+      "summary": "实现 ranking metrics、Leakage Ratio、SupportF1、Image Shuffle Drop 等评估接口。",
+      "acceptance_criteria": [
+        "主排序指标可批量计算",
+        "faithfulness 指标与容量 prior 语义一致",
+        "usage diagnosis 指标可单独运行"
+      ],
+      "artifacts": [
+        "src/ciept/metrics/",
+        "tests/"
+      ],
+      "notes": "指标要避免被总质量收缩等技巧钻空子。"
+    },
+    {
+      "id": "T012",
+      "title": "主实验 Runner 与结果模板",
+      "status": "pending",
+      "priority": 12,
+      "depends_on": [
+        "T008",
+        "T011"
+      ],
+      "summary": "建立主结果、鲁棒曲线、faithfulness、机制消融、usage diagnosis、效率评测的运行入口和结果落盘格式。",
+      "acceptance_criteria": [
+        "存在分实验 runner",
+        "存在统一结果目录与命名规则",
+        "支持 5 seeds 统计的占位流程"
+      ],
+      "artifacts": [
+        "src/ciept/experiments/",
+        "scripts/"
+      ],
+      "notes": "先把协议跑通，再扩实验规模。"
+    },
+    {
+      "id": "T013",
+      "title": "论文交付物与复现清单",
+      "status": "pending",
+      "priority": 13,
+      "depends_on": [
+        "T012"
+      ],
+      "summary": "整理方法图、表格模板、case study 输出与最终交付清单。",
+      "acceptance_criteria": [
+        "存在结果汇总模板",
+        "存在 case study 可视化导出约定",
+        "存在实验 checklist 与风险回顾入口"
+      ],
+      "artifacts": [
+        "docs/",
+        "results/"
+      ],
+      "notes": "服务于 AAAI/SIGIR 投稿收敛，不替代实验本身。"
+    }
+  ]
+}

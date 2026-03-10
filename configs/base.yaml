@@ -1,0 +1,10 @@
+project:
+  name: CIEPT-R
+  seed: 42
+
+paths:
+  root: .
+  docs: docs
+  configs: configs
+  src: src
+  tests: tests

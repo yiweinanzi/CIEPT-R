@@ -1,0 +1,20 @@
+from pathlib import Path
+import json
+
+
+def test_continue_task_file_exists_and_has_bootstrap_task():
+    task_file = Path("continue/task.json")
+    assert task_file.exists()
+
+    data = json.loads(task_file.read_text())
+
+    assert data["project"] == "CIEPT-R"
+    assert any(task["id"] == "T001" for task in data["tasks"])
+
+
+def test_bootstrap_task_marked_done_after_verification():
+    data = json.loads(Path("continue/task.json").read_text())
+    task = next(task for task in data["tasks"] if task["id"] == "T001")
+
+    assert task["status"] == "done"
+    assert data["current_focus"] == "T002"
