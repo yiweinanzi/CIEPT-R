@@ -1,5 +1,145 @@
 # Progress Log
 
+## 2026-03-11 03:24 UTC - B017
+
+- Goal: Move the active baseline focus away from the blocked CLEAR task and prioritize the next non-CLEAR acquisition track.
+- Changes: Switched `current_focus` to `B017`, added follow-up acquisition tasks for `RecGOAT`, complete `MAGNET`, and `IGDMRec`, and updated resource tracking to reflect that CLEAR is temporarily deprioritized while other baselines are pursued first.
+- Verification: `python -m pytest tests/test_persistence.py::test_b012_to_b016_and_m001_to_m003_follow_up_states_are_recorded -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: `B017` now becomes the active path; `CLEAR` remains blocked but is no longer the main execution focus.
+
+## 2026-03-11 03:08 UTC - M004
+
+- Goal: Integrate the local `models/Qwen3.5-9B` backend as a lazy VLM wrapper alongside the new local encoder package.
+- Changes: Added `src/ciept/encoders/vlm.py`, extended `configs/models/local_backends.yaml` with the local VLM path, and exposed the wrapper through `src/ciept/encoders/__init__.py`.
+- Verification: `python -m pytest tests/test_local_encoders.py -v`; lightweight smoke with `transformers`, `sentence-transformers`, `paddleocr`, and the local backend registry confirmed the local VLM path and wrapper are wired.
+- Risks/Next: The wrapper is lazy by design; full 9B generation was not forced into CPU memory during smoke verification.
+
+## 2026-03-11 02:58 UTC - M003
+
+- Goal: Integrate PaddleOCR as a local lazy OCR backend.
+- Changes: Added `src/ciept/encoders/ocr.py`, installed `paddlepaddle`, and registered the OCR backend in `configs/models/local_backends.yaml`.
+- Verification: `python -m pytest tests/test_local_encoders.py -v`; lightweight smoke confirmed `PaddleOCR` import and `LocalPaddleOCREngine` construction.
+- Risks/Next: First real OCR call may still download OCR weights if the runtime cache is empty.
+
+## 2026-03-11 02:53 UTC - M002
+
+- Goal: Integrate the local `models/Qwen3-VL-Embedding-2B` backend as a lazy multimodal embedding adapter.
+- Changes: Added `src/ciept/encoders/vision.py`, registered the local model path, and installed `transformers` plus `qwen-vl-utils` for runtime support.
+- Verification: `python -m pytest tests/test_local_encoders.py -v`; lightweight smoke confirmed local path validation and wrapper construction.
+- Risks/Next: Full VL model loading remains lazy to avoid forcing a 2B model into CPU memory during repository verification.
+
+## 2026-03-11 02:48 UTC - M001
+
+- Goal: Integrate the local `models/Qwen3-Embedding-4B` backend as a lazy text embedding adapter.
+- Changes: Added `src/ciept/encoders/text.py`, `src/ciept/encoders/registry.py`, and `configs/models/local_backends.yaml`, then installed `sentence-transformers` and `transformers` runtime dependencies.
+- Verification: `python -m pytest tests/test_local_encoders.py -v`; lightweight smoke confirmed local path validation and wrapper construction.
+- Risks/Next: Full 4B model loading remains lazy to avoid unnecessary memory pressure in CI-like verification.
+
+## 2026-03-11 02:42 UTC - B016
+
+- Goal: Audit MixRec compatibility against the current single-behavior multimodal baseline runner.
+- Changes: Classified MixRec as a `runtime_mismatch` in the baseline registry and runner because it depends on TF1.14, multi-behavior datasets, and leave-one-out evaluation instead of the repository's current presplit single-behavior contract.
+- Verification: `python -m pytest tests/test_baseline_registry.py tests/test_baseline_runner.py -v`.
+- Risks/Next: Keep blocked unless a dedicated multi-behavior compatibility track is added.
+
+## 2026-03-11 02:37 UTC - B015
+
+- Goal: Integrate DiffMM as a candidate baseline through the shared runner.
+- Changes: Added `prepare_diffmm_dataset()` to emit `trnMat.pkl`, `tstMat.pkl`, and deterministic placeholder modality features; extended the baseline runner with a DiffMM smoke executor that validates the upstream data loader on prepared presplit data.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='DiffMM' ...)` produced unified outputs and loaded the upstream DataHandler successfully.
+- Risks/Next: The current smoke path validates adapter compatibility rather than full diffusion-model training.
+
+## 2026-03-11 02:31 UTC - B014
+
+- Goal: Integrate SMORE as a candidate multimodal baseline.
+- Changes: Reused the MMRec-style family adapter for SMORE, added model-specific scalar overrides in the default smoke executor, and verified the upstream training path on a tiny presplit dataset.
+- Verification: `python -m pytest tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='SMORE' ...)` completed and wrote unified outputs.
+- Risks/Next: Continue from the same candidate baseline track with DiffMM and MixRec audit.
+
+## 2026-03-11 02:26 UTC - B013
+
+- Goal: Attempt MAGNET baseline integration and determine whether the downloaded asset is usable.
+- Changes: Validated the local archive structure and found that the downloaded MAGNET package lacks the actual model implementation files referenced by its own README. Reclassified it as `asset_incomplete` instead of pretending the baseline is runnable.
+- Verification: `python -m pytest tests/test_baseline_registry.py tests/test_baseline_runner.py -v`; ad hoc smoke failed before model load because the archive has no executable MAGNET model package.
+- Risks/Next: Blocked until a complete MAGNET code release is acquired.
+
+## 2026-03-11 02:21 UTC - B012
+
+- Goal: Integrate Guider / Teach Me How to Denoise through the shared baseline layer.
+- Changes: Added a guided-MMRec integration mode, reused the MMRec formatter, and implemented a lightweight smoke executor that validates teacher/student configuration, data loading, and model construction on a tiny presplit dataset.
+- Verification: `python -m pytest tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='Guider' ...)` completed and wrote unified outputs.
+- Risks/Next: Keep the smoke path lightweight because the full teacher/student train loop is heavier than the rest of the bootstrap baselines.
+
+## 2026-03-11 02:16 UTC - B011
+
+- Goal: Close the missing-baseline tracking task after completing the current baseline integration wave.
+- Changes: Updated `deliverables/current/required_assets.md` to track still-missing baselines, reclassified the CLEAR asset as a mismatch, and recorded which candidate downloads have already been promoted into known mappings.
+- Verification: `python -m pytest tests/test_baseline_registry.py tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: The current task focus remains `B008` because the correct multimodal CLEAR implementation is still missing locally.
+
+## 2026-03-11 02:12 UTC - B010
+
+- Goal: Resolve mapping conclusions for downloaded candidate baselines.
+- Changes: Enriched the baseline registry to classify `Guider` as `Teach Me How to Denoise`, `MAGNET` as `Modality-Guided Mixture of Graph Experts`, and keep `DiffMM/MixRec/SMORE` as candidate-only references.
+- Verification: `python -m pytest tests/test_baseline_registry.py -v`; `python -m pytest tests/test_baseline_runner.py -v`.
+- Risks/Next: Feed the mapping conclusions into missing-asset tracking and keep CLEAR blocked until the correct repository is acquired.
+
+## 2026-03-11 02:08 UTC - B009
+
+- Goal: Integrate the Training-free Graph-based Imputation baseline through the shared baseline layer.
+- Changes: Added indexed split/embedding preparation under `src/ciept/baselines/formats.py`, archive handling, graph-imputation runner dispatch, and a default `neigh_mean` smoke executor with a minimal `torch_sparse` stub for bootstrap verification.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='Training-free Graph-based Imputation' ...)` on a tiny presplit dataset produced standardized outputs and an imputed visual embedding file.
+- Risks/Next: The smoke path validates adapter compatibility, not benchmark-scale graph-imputation performance.
+
+## 2026-03-11 02:03 UTC - B008
+
+- Goal: Attempt CLEAR baseline integration and determine whether the downloaded asset is usable.
+- Changes: Validated the downloaded archive against the project baseline list and found a hard mismatch: the local `CLEAR-replication-main.zip` is an API recommendation repository, not the required multimodal CLEAR method. Recorded the mismatch in the registry and task state.
+- Verification: `python -m pytest tests/test_baseline_registry.py tests/test_baseline_runner.py -v`.
+- Risks/Next: Blocked until the correct multimodal CLEAR implementation is downloaded.
+
+## 2026-03-11 01:57 UTC - B007
+
+- Goal: Integrate I3-MRec through the unified baseline layer.
+- Changes: Added I3-MRec-specific dataset preparation and a default smoke executor that copies prepared data into the upstream `Data/<dataset>` layout and runs `main.py` with lightweight CPU-safe stubs for `faiss`, `numba`, and `.cuda()` calls.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='I3-MRec' ...)` on a tiny presplit dataset executed the upstream entrypoint and wrote unified outputs.
+- Risks/Next: The smoke path is integration-focused and keeps heavy ANN/runtime dependencies outside the core repository.
+
+## 2026-03-11 01:50 UTC - B006
+
+- Goal: Integrate MGCN through the shared MMRec-style baseline path.
+- Changes: Reused the MMRec formatter and runner family for MGCN, adding a default smoke executor that injects lightweight `torchvision` and `torch_scatter` stubs for bootstrap execution on CPU.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='MGCN' ...)` on a tiny presplit dataset completed and wrote unified outputs.
+- Risks/Next: The bootstrap smoke path validates compatibility, while full benchmark runs still belong to later experiment execution on real datasets.
+
+## 2026-03-11 01:43 UTC - B005
+
+- Goal: Integrate BM3 through the shared MMRec-style baseline path.
+- Changes: Added archive extraction plus MMRec `.inter`/feature preparation and a default smoke executor that bootstraps the upstream trainer with small CPU-safe overrides.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='BM3' ...)` on a tiny presplit dataset completed and wrote unified outputs.
+- Risks/Next: Continue the same adapter family for MGCN.
+
+## 2026-03-11 01:35 UTC - B004
+
+- Goal: Integrate VBPR through the unified baseline layer.
+- Changes: Added VBPR-specific numeric interaction/visual-feature preparation, archive extraction, and a default smoke executor that trains the upstream `VBPR` model for one lightweight pass on prepared presplit data.
+- Verification: `python -m pytest tests/test_baseline_formats.py tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='VBPR' ...)` on a tiny presplit dataset produced unified outputs with valid/test AUC metrics.
+- Risks/Next: Continue with the MMRec-style multimodal baselines.
+
+## 2026-03-11 01:27 UTC - B003
+
+- Goal: Integrate LightGCN on top of the RecBole data bridge and shared baseline runner.
+- Changes: Fixed the RecBole runtime path to use `data_path/<dataset>/` layout, upgraded the baseline runner with a default RecBole smoke executor, and verified that LightGCN can read the bridged presplit dataset and emit standardized outputs.
+- Verification: `python -m pytest tests/test_baseline_runner.py -v`; ad hoc smoke: `run_baseline(... baseline_name='LightGCN' ...)` on a tiny presplit dataset completed through RecBole and wrote unified outputs.
+- Risks/Next: Continue baseline-family integrations on top of the now-working runner.
+
+## 2026-03-11 01:17 UTC - B002
+
+- Goal: Build a baseline-only bridge from presplit CIEPT datasets into RecBole benchmark files and add a unified baseline runner without coupling RecBole into the core research stack.
+- Changes: Added `src/ciept/baselines/data_bridge.py` to validate `train/valid/test.csv` and emit RecBole-style `*.train.inter` / `*.valid.inter` / `*.test.inter` plus optional `.item` and a bridge manifest; added `src/ciept/baselines/runner.py` with a standardized request/result contract, `results/baselines/<baseline>/<run_id>/` outputs, recbole-backed dispatch via injected executor, and explicit `external_script` rejection for later tasks; updated the RecBole config helper, package exports, B002 design/plan docs, and persistence coverage.
+- Verification: `python -m pytest tests/test_baseline_bridge.py tests/test_baseline_runner.py tests/test_recbole_adapter.py -v`; `python -m pytest tests/test_persistence.py::test_b002_recbole_bridge_task_marked_done_and_b003_selected_next -v`; `python -m pytest -v`; `bash scripts/check.sh`.
+- Risks/Next: Continue from `B003` with concrete LightGCN execution on top of the shared bridge/runner path; the default RecBole executor still requires task-specific wiring once a real baseline is integrated.
+
 ## 2026-03-11 00:10 UTC - B001
 
 - Goal: Inventory downloaded baselines, classify direct/mapped/missing assets, and bootstrap a RecBole helper layer without changing the core `ciept` research stack.

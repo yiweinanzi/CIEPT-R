@@ -1,7 +1,7 @@
 {
   "project": "CIEPT-R",
   "last_updated": "2026-03-11",
-  "current_focus": "B002",
+  "current_focus": "B017",
   "tasks": [
     {
       "id": "T001",
@@ -301,7 +301,7 @@
     {
       "id": "B002",
       "title": "RecBole 数据桥接与统一 Baseline Runner",
-      "status": "pending",
+      "status": "done",
       "priority": 15,
       "depends_on": [
         "B001"
@@ -316,12 +316,12 @@
         "src/ciept/baselines/",
         "configs/baselines/"
       ],
-      "notes": "这是所有 baseline 真正跑起来之前的桥接任务。"
+      "notes": "已完成 presplit CSV 到 RecBole benchmark atomic files 的桥接，以及按 integration_mode dispatch 的统一 baseline runner；真实单 baseline 执行继续在 B003+ 完成。"
     },
     {
       "id": "B003",
       "title": "LightGCN Baseline 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 16,
       "depends_on": [
         "B002"
@@ -336,12 +336,12 @@
         "baselines/LightGCN-master.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已通过 RecBole auxiliary path 接通 presplit bridge、统一 runner 和默认 smoke executor；tiny dataset CPU smoke 已验证输出统一结果文件。"
     },
     {
       "id": "B004",
       "title": "VBPR Baseline 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 17,
       "depends_on": [
         "B002"
@@ -356,12 +356,12 @@
         "baselines/VBPR-PyTorch-main.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已接通 presplit -> VBPR numeric interactions/visual features formatter、统一 runner 和默认 smoke executor；tiny dataset smoke 已验证统一结果落盘。"
     },
     {
       "id": "B005",
       "title": "BM3 Baseline 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 18,
       "depends_on": [
         "B002"
@@ -376,12 +376,12 @@
         "baselines/BM3-master.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已接通 MMRec-style `.inter`/feature formatter、archive extraction 和默认 smoke executor；tiny dataset smoke 已验证统一结果落盘。"
     },
     {
       "id": "B006",
       "title": "MGCN Baseline 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 19,
       "depends_on": [
         "B002"
@@ -396,12 +396,12 @@
         "baselines/MGCN-main.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已复用 MMRec adapter 家族接通 MGCN，包含 `torch_scatter` CPU stub 的默认 smoke executor；tiny dataset smoke 已验证统一结果落盘。"
     },
     {
       "id": "B007",
       "title": "I3-MRec Baseline 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 20,
       "depends_on": [
         "B002"
@@ -416,12 +416,12 @@
         "baselines/I3-MRec-main.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已接通 `.inter` + feature formatter、archive extraction 和带 `faiss/numba/cuda` stubs 的默认 smoke executor；tiny dataset smoke 已验证入口可运行并导出统一结果。"
     },
     {
       "id": "B008",
       "title": "CLEAR Baseline 接入",
-      "status": "pending",
+      "status": "blocked",
       "priority": 21,
       "depends_on": [
         "B002"
@@ -436,12 +436,12 @@
         "baselines/CLEAR-replication-main.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "阻塞：本地 `baselines/CLEAR-replication-main.zip` 是 API recommendation 的 CLEAR 复现实验，不是 `aaai项目.md` 需要的 multimodal CLEAR（Null-Space Projection for Cross-Modal De-Redundancy in Multimodal Recommendation）。"
     },
     {
       "id": "B009",
       "title": "Training-free Graph-based Imputation 接入",
-      "status": "pending",
+      "status": "done",
       "priority": 22,
       "depends_on": [
         "B002"
@@ -456,12 +456,12 @@
         "baselines/Graph-Missing-Modalities-TKDE-master.zip",
         "src/ciept/baselines/"
       ],
-      "notes": "direct_match"
+      "notes": "已接通 indexed split/embedding formatter、archive extraction 和带 `torch_sparse` stub 的默认 smoke executor；tiny dataset 的 `neigh_mean` imputation smoke 已验证输出文件生成。"
     },
     {
       "id": "B010",
       "title": "Candidate Baselines 映射确认",
-      "status": "pending",
+      "status": "done",
       "priority": 23,
       "depends_on": [
         "B001"
@@ -478,12 +478,12 @@
         "baselines/MixRec-main.zip",
         "baselines/SMORE-main.zip"
       ],
-      "notes": "mapped_candidate"
+      "notes": "已确认 `Guider -> Teach Me How to Denoise`、`MAGNET -> Modality-Guided Mixture of Graph Experts`；`DiffMM/MixRec/SMORE` 仅保留为候选参考，不纳入当前主对比。"
     },
     {
       "id": "B011",
       "title": "缺失 Baselines 获取跟踪",
-      "status": "pending",
+      "status": "done",
       "priority": 24,
       "depends_on": [
         "B001"
@@ -496,7 +496,242 @@
       "artifacts": [
         "deliverables/current/required_assets.md"
       ],
-      "notes": "missing"
+      "notes": "已把缺失/错配 baseline 状态写入 required assets tracking：RecGOAT、IGDMRec 仍缺失，CLEAR 正确 multimodal 实现缺失，Guider 与 MAGNET 已转入已下载映射项。"
+    },
+    {
+      "id": "B012",
+      "title": "Guider / Teach Me How to Denoise 接入",
+      "status": "done",
+      "priority": 25,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "接入 Guider（Teach Me How to Denoise）并纳入统一 baseline runner。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 teacher/student smoke 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/Guider-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "已接通 guided-MMRec formatter 与默认 smoke executor；tiny dataset 已验证 teacher/student 入口可构建并写出统一结果。"
+    },
+    {
+      "id": "B013",
+      "title": "MAGNET Baseline 接入",
+      "status": "blocked",
+      "priority": 26,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "接入 MAGNET 并纳入统一 baseline runner。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/MAGNET-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "阻塞：本地 MAGNET archive 只有 README/训练框架骨架，缺少实际模型实现文件，无法形成可执行 smoke path。"
+    },
+    {
+      "id": "B014",
+      "title": "SMORE Candidate Baseline 接入",
+      "status": "done",
+      "priority": 27,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "接入 SMORE 候选 baseline 并纳入统一 baseline runner。",
+      "acceptance_criteria": [
+        "能够读取 presplit 数据",
+        "能够跑通 baseline 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/SMORE-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "已复用 MMRec-family adapter 接通 SMORE，默认 smoke executor 在 tiny dataset 上通过。"
+    },
+    {
+      "id": "B015",
+      "title": "DiffMM Candidate Baseline 接入",
+      "status": "done",
+      "priority": 28,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "接入 DiffMM 候选 baseline 并纳入统一 baseline runner。",
+      "acceptance_criteria": [
+        "能够把 presplit 数据转成 DiffMM 所需格式",
+        "能够跑通 data-handler smoke 入口",
+        "能够输出统一 metrics/result 文件"
+      ],
+      "artifacts": [
+        "baselines/DiffMM-main.zip",
+        "src/ciept/baselines/"
+      ],
+      "notes": "已新增 DiffMM formatter（`trnMat.pkl`/`tstMat.pkl` + features）和默认 smoke executor；tiny dataset 已验证 DataHandler 可加载。"
+    },
+    {
+      "id": "B016",
+      "title": "MixRec 兼容性审计",
+      "status": "blocked",
+      "priority": 29,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "审计 MixRec 是否与当前单行为 presplit multimodal baseline 轨兼容。",
+      "acceptance_criteria": [
+        "给出数据契约是否兼容的结论",
+        "说明能否纳入当前 baseline runner"
+      ],
+      "artifacts": [
+        "baselines/MixRec-main.zip"
+      ],
+      "notes": "阻塞：MixRec 依赖 TF1.14、多行为数据与 leave-one-out 协议，不兼容当前单行为 multimodal baseline runner。"
+    },
+    {
+      "id": "M001",
+      "title": "Qwen3-Embedding-4B 本地文本编码器接入",
+      "status": "done",
+      "priority": 30,
+      "depends_on": [
+        "T013"
+      ],
+      "summary": "为本地 `models/Qwen3-Embedding-4B` 增加 lazy-load 文本 embedding adapter。",
+      "acceptance_criteria": [
+        "存在本地模型配置",
+        "存在 lazy-load text embedder",
+        "测试覆盖本地路径校验与调用协议"
+      ],
+      "artifacts": [
+        "models/Qwen3-Embedding-4B",
+        "src/ciept/encoders/"
+      ],
+      "notes": "已新增 `LocalQwenTextEmbedder` 与本地 backend registry，依赖和路径 smoke 已验证。"
+    },
+    {
+      "id": "M002",
+      "title": "Qwen3-VL-Embedding-2B 本地视觉嵌入接入",
+      "status": "done",
+      "priority": 31,
+      "depends_on": [
+        "M001"
+      ],
+      "summary": "为本地 `models/Qwen3-VL-Embedding-2B` 增加 lazy-load multimodal embedding adapter。",
+      "acceptance_criteria": [
+        "存在本地模型配置",
+        "存在 lazy-load VL embedder",
+        "测试覆盖本地路径校验与调用协议"
+      ],
+      "artifacts": [
+        "models/Qwen3-VL-Embedding-2B",
+        "src/ciept/encoders/"
+      ],
+      "notes": "已新增 `LocalQwenVLEmbedder`，本地脚本与 wrapper smoke 已验证。"
+    },
+    {
+      "id": "M003",
+      "title": "PaddleOCR 本地 OCR 接入",
+      "status": "done",
+      "priority": 32,
+      "depends_on": [
+        "T013"
+      ],
+      "summary": "增加 PaddleOCR lazy-load OCR adapter。",
+      "acceptance_criteria": [
+        "存在 OCR wrapper",
+        "存在本地 backend 配置",
+        "测试覆盖 lazy construction 与提取协议"
+      ],
+      "artifacts": [
+        "src/ciept/encoders/",
+        "configs/models/"
+      ],
+      "notes": "已新增 `LocalPaddleOCREngine`，并安装 `paddlepaddle` 以满足 PaddleOCR runtime。"
+    },
+    {
+      "id": "M004",
+      "title": "Qwen3.5-9B 本地 VLM 接入",
+      "status": "done",
+      "priority": 33,
+      "depends_on": [
+        "M001"
+      ],
+      "summary": "为本地 `models/Qwen3.5-9B` 增加 lazy-load 生成式 VLM backend。",
+      "acceptance_criteria": [
+        "存在本地模型配置",
+        "存在 lazy-load VLM wrapper",
+        "测试覆盖调用协议"
+      ],
+      "artifacts": [
+        "models/Qwen3.5-9B",
+        "src/ciept/encoders/"
+      ],
+      "notes": "已新增 `LocalQwenVLM`，并验证本地目录结构与 lazy wrapper 构造。"
+    },
+    {
+      "id": "B017",
+      "title": "RecGOAT 获取与接入预备",
+      "status": "pending",
+      "priority": 34,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "跟进 RecGOAT 的官方代码源并为后续接入补齐 runner 前置条件。",
+      "acceptance_criteria": [
+        "确认可用代码源",
+        "明确本地获取路径",
+        "评估是否可纳入现有 baseline runner"
+      ],
+      "artifacts": [
+        "deliverables/current/required_assets.md",
+        "src/ciept/baselines/"
+      ],
+      "notes": "已知存在官方代码线索，暂作为 CLEAR 之外的最高优先级 baseline 获取任务。"
+    },
+    {
+      "id": "B018",
+      "title": "MAGNET 完整资产获取",
+      "status": "pending",
+      "priority": 35,
+      "depends_on": [
+        "B013"
+      ],
+      "summary": "获取包含实际 MAGNET 模型实现文件的完整代码资产。",
+      "acceptance_criteria": [
+        "获得可执行代码包",
+        "验证模型实现文件齐全",
+        "为后续接入保留清晰入口"
+      ],
+      "artifacts": [
+        "deliverables/current/required_assets.md"
+      ],
+      "notes": "当前本地 archive 不完整；此任务专门跟进完整代码获取。"
+    },
+    {
+      "id": "B019",
+      "title": "IGDMRec 获取跟踪",
+      "status": "blocked",
+      "priority": 36,
+      "depends_on": [
+        "B011"
+      ],
+      "summary": "持续跟踪 IGDMRec 的可执行代码资产。",
+      "acceptance_criteria": [
+        "记录可用代码源或明确缺失",
+        "为后续接入保留来源信息"
+      ],
+      "artifacts": [
+        "deliverables/current/required_assets.md"
+      ],
+      "notes": "当前仍未定位到可执行官方代码源，仅保留缺失跟踪。"
     }
   ]
 }

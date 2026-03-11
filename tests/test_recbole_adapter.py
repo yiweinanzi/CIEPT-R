@@ -15,6 +15,7 @@ def test_build_recbole_config_uses_presplit_full_sort_defaults(tmp_path):
 
     assert config["model"] == "LightGCN"
     assert config["dataset"] == "amazon2023"
+    assert config["benchmark_filename"] == ["train", "valid", "test"]
     assert config["eval_args"]["order"] == "TO"
     assert config["eval_args"]["mode"] == "full"
 

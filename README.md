@@ -58,11 +58,33 @@ PYTHONPATH=src python -m ciept.data.cli \
   --min-item-degree 5
 ```
 
-## Planned Next Tasks
+## Baseline Wave Status
 
-- `B002`: RecBole dataset bridge and shared baseline runner
-- `B003`: LightGCN baseline integration
-- `B004`: VBPR baseline integration
+The baseline integration wave has advanced beyond bootstrap:
+
+- `B003-B007` and `B009` now have runnable baseline-family adapters and smoke executors
+- `B010-B011` have resolved candidate mappings and missing-asset tracking
+- `B012`, `B014`, and `B015` now integrate additional downloaded candidate baselines
+- `B008`, `B013`, and `B016` remain blocked because their local assets are wrong, incomplete, or fundamentally incompatible
+- `B017-B019` now track the next non-CLEAR acquisition wave, with `RecGOAT` promoted as the active follow-up focus
+
+Integrated baseline families now include:
+
+- `LightGCN` via the RecBole auxiliary path
+- `VBPR` via the upstream Python package source
+- `BM3` and `MGCN` via an MMRec-style adapter family
+- `Guider` via a guided MMRec-family adapter
+- `SMORE` via the MMRec-style adapter family
+- `DiffMM` via a standalone diffusion-family adapter
+- `I3-MRec` via a standalone upstream entrypoint adapter
+- `Training-free Graph-based Imputation` via an indexed imputation adapter family
+
+Local model/OCR integrations now include:
+
+- `Qwen3-Embedding-4B` as a lazy local text embedding adapter
+- `Qwen3-VL-Embedding-2B` as a lazy local multimodal embedding adapter
+- `Qwen3.5-9B` as a lazy local VLM backend
+- `PaddleOCR` as a lazy OCR backend
 
 ## Graph Layer
 
@@ -172,9 +194,9 @@ The repository now tracks baseline work separately from the core `T00x` research
 
 Current baseline classes are:
 
-- direct matches ready for future integration
-- mapped candidates needing manual paper mapping
-- missing baselines still to acquire
+- direct matches with runnable smoke adapters
+- confirmed mappings promoted from downloaded candidates
+- missing or mismatched baselines still to acquire
 
 ## Metrics Layer
 

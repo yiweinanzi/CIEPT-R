@@ -15,9 +15,15 @@ def _load_base_config() -> dict:
     return yaml.safe_load(config_path.read_text(encoding="utf-8"))
 
 
-def build_recbole_config(dataset_name: str, data_path: Path, model_name: str) -> dict:
+def build_recbole_config(
+    dataset_name: str,
+    data_path: Path,
+    model_name: str,
+    benchmark_filename: list[str] | None = None,
+) -> dict:
     config = _load_base_config()
     config["dataset"] = dataset_name
     config["data_path"] = str(Path(data_path))
     config["model"] = model_name
+    config["benchmark_filename"] = benchmark_filename or ["train", "valid", "test"]
     return config

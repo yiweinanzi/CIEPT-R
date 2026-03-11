@@ -1,0 +1,12 @@
+text_embedding:
+  backend: sentence_transformers
+  path: models/Qwen3-Embedding-4B
+vision_embedding:
+  backend: qwen3_vl_embedding
+  path: models/Qwen3-VL-Embedding-2B
+vlm:
+  backend: qwen_causal_lm
+  path: models/Qwen3.5-9B
+ocr:
+  backend: paddleocr
+  lang: en
