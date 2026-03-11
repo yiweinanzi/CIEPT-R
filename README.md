@@ -1,53 +1,257 @@
-# CIEPT-R Bootstrap Repository
+# CIEPT-R
 
-This repository bootstraps the engineering workspace for the AAAI-oriented CIEPT-R project described in `aaai项目.md`.
+## 项目简介 | Overview
 
-## Current Scope
+**中文**
 
-The current milestone is intentionally narrow:
+CIEPT-R 是一个面向多模态推荐研究的工程化仓库，围绕 `aaai项目.md` 中描述的 CIEPT-R 方法逐步实现数据协议、图结构、先验、传输重排、干预审计、实验 runner、baseline 对齐和本地模型后端。
 
-- create a Python research repository skeleton
-- persist agent workflow and task state under `continue/`
-- provide a minimal config loader, data protocol, priors, transport sanity checks, a torch reranker skeleton, intervention utilities, and conflict-stress protocol tooling
-- make bootstrap verification reproducible
+当前仓库的目标不是“已经完成整篇论文复现”，而是提供一个可持续推进的研究工程底座：
 
-This repository does **not** yet implement dataset preprocessing, partial transport, training, or audited evaluation.
+- 固定数据协议和时间切分约束
+- 把核心研究模块拆成可测试的边界
+- 为 baseline、VLM、OCR、本地编码器预留统一接入面
+- 用持续验证保证每一步修改都可回归
 
-## Repository Layout
+**English**
 
-- `aaai项目.md`: original research framing
-- `configs/`: project configuration files
-- `continue/`: persistent agent instructions, tasks, and progress logs
-- `docs/superpowers/`: design and implementation plans
-- `data/`: raw/interim/processed dataset layout and processed artifacts
-- `scripts/`: verification scripts
-- `src/ciept/`: Python package bootstrap
-- `tests/`: bootstrap tests
+CIEPT-R is an engineering-first research repository for multimodal recommendation. It incrementally implements the CIEPT-R method described in `aaai项目.md`, including the data contract, graph structures, priors, transport-based reranking, intervention/audit tooling, experiment runners, baseline alignment, and local model backends.
 
-## Bootstrap Workflow
+This repository is not presented as a finished paper reproduction. It is a maintainable research codebase designed to:
 
-Future agent sessions should:
+- enforce a stable data protocol and temporal split policy,
+- decompose the method into testable modules,
+- provide unified integration surfaces for baselines, VLMs, OCR, and local encoders,
+- and keep every step regression-tested.
 
-1. read `continue/AGENT.MD`
-2. inspect `continue/task.json`
-3. pick exactly one ready task
-4. implement with verification evidence
-5. update `continue/progress.md`
-6. commit the completed task once
+## 当前能力 | Current Capabilities
 
-## Data Protocol
+**中文**
 
-`T002` establishes the initial offline data contract:
+当前仓库已经具备：
 
-- source downloads live under `data/raw/`
-- temporary preprocessing artifacts live under `data/interim/`
-- reproducible split outputs live under `data/processed/`
-- temporal splitting is global absolute-time `80/10/10`
-- iterative k-core filtering happens before the split
-- items with missing modalities are retained and recorded with explicit flags
-- main training is transductive; cold-start is reported separately
+- 离线 `raw / interim / processed` 数据协议与全局时间切分
+- evidence graph、块对角拓扑、reliability/capacity/nuisance 先验
+- toy partial transport、torch reranker、干预与 leakage 诊断
+- ranking / faithfulness / usage diagnosis 指标
+- dispatcher-based 实验 runner 与交付物导出
+- 多条 baseline family runner 与 smoke 执行路径
+- 本地 `Qwen3-Embedding-4B`、`Qwen3-VL-Embedding-2B`、`Qwen3.5-9B`、`PaddleOCR` 的 lazy adapters
 
-Example preprocessing entrypoint:
+**English**
+
+The repository currently provides:
+
+- an offline `raw / interim / processed` data protocol with global temporal splitting,
+- evidence-graph, block-diagonal topology, and reliability/capacity/nuisance priors,
+- toy partial transport, a torch reranker, intervention logic, and leakage diagnostics,
+- ranking / faithfulness / usage-diagnosis metrics,
+- a dispatcher-based experiment runner and delivery/export tooling,
+- multiple baseline-family runners with smoke execution paths,
+- and lazy adapters for local `Qwen3-Embedding-4B`, `Qwen3-VL-Embedding-2B`, `Qwen3.5-9B`, and `PaddleOCR`.
+
+## 当前边界 | Current Boundaries
+
+**中文**
+
+当前仓库仍然有意保留以下边界：
+
+- 真实 Amazon Reviews 2023 全量预处理尚未完成
+- 大规模 benchmark 结果与多 seed 统计尚未完成
+- 部分 baseline 仍缺官方资产或本地资产不完整
+- 本地大模型后端已接入，但默认保持 lazy-load，不在测试阶段强制加载 4B/9B 权重
+
+**English**
+
+The repository still intentionally stops short of:
+
+- full-scale Amazon Reviews 2023 preprocessing,
+- benchmark-grade results and multi-seed statistics,
+- complete coverage for every baseline when the upstream asset is missing or incomplete,
+- eager loading of large local backends during tests or CI-like verification.
+
+## 仓库结构 | Repository Layout
+
+```text
+aaai项目.md                         Research framing / 研究设定
+configs/                           Project and local-backend configs / 配置
+continue/                          Persistent task state and progress / 持久化任务状态
+data/                              Raw, interim, processed data layout / 数据目录
+deliverables/current/              Delivery review and required assets / 交付物审查
+docs/superpowers/                  Design and implementation plans / 设计与计划文档
+scripts/                           Verification scripts / 验证脚本
+src/ciept/                         Main Python package / 主 Python 包
+tests/                             Regression tests / 回归测试
+```
+
+## 核心模块 | Core Modules
+
+### 数据协议 | Data Protocol
+
+**中文**
+
+`src/ciept/data/` 负责：
+
+- iterative k-core
+- 全局绝对时间 `80/10/10` 切分
+- missing modality 保留策略
+- stress / lure / nuisance 协议
+
+**English**
+
+`src/ciept/data/` handles:
+
+- iterative k-core filtering,
+- global absolute-time `80/10/10` splits,
+- missing-modality retention,
+- and stress / lure / nuisance protocols.
+
+### 图与先验 | Graph And Priors
+
+**中文**
+
+`src/ciept/graph/` 与 `src/ciept/priors/` 提供：
+
+- text / vision evidence nodes
+- 严格块对角 topology
+- corroboration / stability / vulnerability heuristics
+- capacity prior 与 nuisance mask
+
+**English**
+
+`src/ciept/graph/` and `src/ciept/priors/` provide:
+
+- text / vision evidence nodes,
+- strict block-diagonal topology,
+- corroboration / stability / vulnerability heuristics,
+- capacity priors and nuisance masks.
+
+### 传输与训练骨架 | Transport And Training Skeleton
+
+**中文**
+
+`src/ciept/transport/` 与 `src/ciept/train/` 提供：
+
+- toy partial transport sanity checks
+- torch reranker skeleton
+- confidence-weighted ListMLE training stub
+
+**English**
+
+`src/ciept/transport/` and `src/ciept/train/` provide:
+
+- toy partial-transport sanity checks,
+- a torch reranker skeleton,
+- and a confidence-weighted ListMLE training stub.
+
+### 审计与指标 | Audit And Metrics
+
+**中文**
+
+`src/ciept/audit/` 与 `src/ciept/metrics/` 提供：
+
+- support normalization
+- intervention / leakage analysis
+- ranking, faithfulness, and usage-diagnosis metrics
+
+**English**
+
+`src/ciept/audit/` and `src/ciept/metrics/` provide:
+
+- support normalization,
+- intervention / leakage analysis,
+- and ranking / faithfulness / usage-diagnosis metrics.
+
+### Baselines
+
+**中文**
+
+`src/ciept/baselines/` 现在已经支持多种 family-based integration：
+
+- RecBole family: `LightGCN`
+- Python package family: `VBPR`
+- MMRec-style family: `BM3`, `MGCN`, `Guider`, `SMORE`
+- Standalone family: `I3-MRec`, `DiffMM`
+- Indexed imputation family: `Training-free Graph-based Imputation`
+
+以下 baseline 当前仍被如实标记为 blocker：
+
+- `CLEAR`: 本地仓库与目标论文不匹配
+- `MAGNET`: 本地 archive 缺少模型实现
+- `MixRec`: 当前 runner 契约不兼容
+- `RecGOAT`, `IGDMRec`: 本地仍缺资产
+
+**English**
+
+`src/ciept/baselines/` now supports multiple family-based integrations:
+
+- RecBole family: `LightGCN`
+- Python-package family: `VBPR`
+- MMRec-style family: `BM3`, `MGCN`, `Guider`, `SMORE`
+- Standalone family: `I3-MRec`, `DiffMM`
+- Indexed-imputation family: `Training-free Graph-based Imputation`
+
+The following baselines remain truthfully blocked:
+
+- `CLEAR`: the local repository does not match the required paper,
+- `MAGNET`: the local archive is missing model implementation files,
+- `MixRec`: incompatible with the current runner contract,
+- `RecGOAT`, `IGDMRec`: assets still missing locally.
+
+### 本地模型与 OCR | Local Models And OCR
+
+**中文**
+
+`src/ciept/encoders/` 提供 lazy-load adapters：
+
+- `LocalQwenTextEmbedder`
+- `LocalQwenVLEmbedder`
+- `LocalQwenVLM`
+- `LocalPaddleOCREngine`
+
+配置见 `configs/models/local_backends.yaml`。
+
+**English**
+
+`src/ciept/encoders/` provides lazy-load adapters for:
+
+- `LocalQwenTextEmbedder`
+- `LocalQwenVLEmbedder`
+- `LocalQwenVLM`
+- `LocalPaddleOCREngine`
+
+Configuration lives in `configs/models/local_backends.yaml`.
+
+## 快速开始 | Quick Start
+
+### 1. 安装基础依赖 | Install Base Dependencies
+
+```bash
+python -m pip install -e .[dev]
+```
+
+### 2. 可选：安装 baseline 依赖 | Optional: Baseline Dependencies
+
+```bash
+python -m pip install -e .[baseline]
+```
+
+### 3. 可选：安装本地模型/OCR 依赖 | Optional: Local Model / OCR Dependencies
+
+```bash
+python -m pip install -e .[local_models]
+```
+
+### 4. 运行验证 | Run Verification
+
+```bash
+python -m pytest -v
+bash scripts/check.sh
+```
+
+## 常用入口 | Common Entrypoints
+
+### 数据预处理 | Data Preparation
 
 ```bash
 PYTHONPATH=src python -m ciept.data.cli \
@@ -58,173 +262,39 @@ PYTHONPATH=src python -m ciept.data.cli \
   --min-item-degree 5
 ```
 
-## Baseline Wave Status
+### Toy Train / Eval
 
-The baseline integration wave has advanced beyond bootstrap:
+```bash
+PYTHONPATH=src python -m ciept.train.cli --mode train
+PYTHONPATH=src python -m ciept.train.cli --mode eval
+```
 
-- `B003-B007` and `B009` now have runnable baseline-family adapters and smoke executors
-- `B010-B011` have resolved candidate mappings and missing-asset tracking
-- `B012`, `B014`, and `B015` now integrate additional downloaded candidate baselines
-- `B008`, `B013`, and `B016` remain blocked because their local assets are wrong, incomplete, or fundamentally incompatible
-- `B017-B019` now track the next non-CLEAR acquisition wave, with `RecGOAT` promoted as the active follow-up focus
+## 文档入口 | Documentation
 
-Integrated baseline families now include:
+**中文**
 
-- `LightGCN` via the RecBole auxiliary path
-- `VBPR` via the upstream Python package source
-- `BM3` and `MGCN` via an MMRec-style adapter family
-- `Guider` via a guided MMRec-family adapter
-- `SMORE` via the MMRec-style adapter family
-- `DiffMM` via a standalone diffusion-family adapter
-- `I3-MRec` via a standalone upstream entrypoint adapter
-- `Training-free Graph-based Imputation` via an indexed imputation adapter family
+- 研究设定：`aaai项目.md`
+- 持久化任务状态：`continue/task.json`
+- 进度日志：`continue/progress.md`
+- 交付物审查：`deliverables/current/implementation_review.md`
+- 资源缺口：`deliverables/current/required_assets.md`
+- 设计与计划：`docs/superpowers/specs/`, `docs/superpowers/plans/`
 
-Local model/OCR integrations now include:
+**English**
 
-- `Qwen3-Embedding-4B` as a lazy local text embedding adapter
-- `Qwen3-VL-Embedding-2B` as a lazy local multimodal embedding adapter
-- `Qwen3.5-9B` as a lazy local VLM backend
-- `PaddleOCR` as a lazy OCR backend
+- Research framing: `aaai项目.md`
+- Persistent task state: `continue/task.json`
+- Progress log: `continue/progress.md`
+- Delivery review: `deliverables/current/implementation_review.md`
+- Resource gaps: `deliverables/current/required_assets.md`
+- Design and plans: `docs/superpowers/specs/`, `docs/superpowers/plans/`
 
-## Graph Layer
+## 说明 | Notes
 
-`T003` introduces a lightweight `src/ciept/graph/` package with:
+**中文**
 
-- dataclass-based node and topology types
-- strict block-diagonal topology builders for text and vision evidence
-- JSON-friendly cache serialization helpers
-- adapter placeholders for later tensor-backed tasks
+这个仓库刻意把“研究核心实现”和“baseline / 本地模型 / OCR 辅助层”分开。RecBole、PaddleOCR、Qwen 本地权重都不应反向污染 `src/ciept` 的核心研究模块边界。
 
-The graph layer intentionally does not parse raw items or import `torch` yet.
+**English**
 
-## Prior Layer
-
-`T004` adds a lightweight `src/ciept/priors/` package with:
-
-- heuristic corroboration, stability, and vulnerability scoring
-- interpretable reliability aggregation
-- normalized capacity prior construction
-- nuisance-mask inference with explicit-label precedence and heuristic fallback
-
-This layer is intentionally metadata-driven and keeps learned heads out of scope.
-
-## Transport Sanity Layer
-
-`T005` adds a NumPy-based `src/ciept/transport/` toy solver for:
-
-- partial mass-budget enforcement
-- target-capacity enforcement
-- explicit reject-mass reporting
-
-It is intentionally a semantic sanity-check layer, not the final research solver.
-
-## Reranker Layer
-
-`T006` adds a torch-based reranker layer that introduces:
-
-- pairwise feature-cost construction
-- capacity-driven reliability penalties
-- a torch partial-transport operator
-- a scalar score derived from the transport plan
-
-This is intentionally a minimal forward skeleton, not the final research solver.
-
-## Intervention Layer
-
-`T007` adds a lightweight `src/ciept/audit/` package with:
-
-- capacity-normalized support
-- support-to-logit conversion
-- binary Gumbel/STE gating
-- leakage-ratio diagnostics
-- a single-pass intervention loss
-
-This layer is intentionally modular and not yet wired into a full training loop.
-
-## Conflict Stress Protocol
-
-`T009` adds an offline conflict-stress pipeline that:
-
-- generates positive-preserving nuisance and negative-preserving lure examples
-- writes artifacts under `data/interim/`
-- emits nuisance masks, protocol summaries, and review queues
-
-This stays at the structured-node level and does not perform real image processing.
-
-## Audit Dataset Protocol
-
-`T010` adds an audit-set protocol that:
-
-- builds `audit_examples.jsonl` from stress artifacts
-- exports `vlm_requests.jsonl`
-- merges external `vlm_predictions.jsonl` back into annotated records
-- initializes `adjudication_queue.jsonl`
-
-It stays provider-agnostic and file-based, so a concrete VLM can be plugged in later without rewriting the schema.
-
-## Experiment Runner
-
-`T012` adds a dispatcher-based `src/ciept/experiments/` package that:
-
-- routes named experiments to dedicated modules
-- writes `metrics.json` and `summary.md` under `results/<experiment>/<run_id>/`
-- keeps toy/placeholder runs clearly labeled
-
-It standardizes experiment outputs without pretending the current runs are real benchmark results.
-
-## Delivery Bundle
-
-`T013` adds a delivery/export layer that writes:
-
-- manifest and task snapshots
-- result indexes
-- reproducibility checklist and entrypoint index
-- required datasets/models/baselines inventory
-- implementation review against `aaai项目.md`
-
-This is the current handoff package while real datasets, VLMs, and baseline integrations remain deferred.
-
-## Baseline Integration
-
-The repository now tracks baseline work separately from the core `T00x` research task chain.
-
-- `src/ciept/baselines/` records downloaded baselines and their mapping status
-- RecBole is treated as an auxiliary framework for baseline/evaluation alignment
-- the core `ciept` research implementation remains independent from RecBole
-
-Current baseline classes are:
-
-- direct matches with runnable smoke adapters
-- confirmed mappings promoted from downloaded candidates
-- missing or mismatched baselines still to acquire
-
-## Metrics Layer
-
-`T011` adds a reusable metrics package for:
-
-- ranking metrics (`Recall@k`, `NDCG@k`, `MRR`)
-- faithfulness metrics (`SufficiencyGap`, `ComprehensivenessGap`, `LeakageRatio`, `SupportPrecision/Recall/F1`)
-- usage diagnostics (`Image Shuffle Drop`, `Random Caption Drop`, `Missing-Modality Drop`, `Transported Mass Ratio`)
-
-It intentionally stops short of significance testing or experiment-runner orchestration.
-
-## Conflict Stress Protocol
-
-`T009` adds an offline conflict-stress pipeline that:
-
-- generates positive-preserving nuisance and negative-preserving lure examples
-- writes artifacts under `data/interim/`
-- emits nuisance masks, protocol summaries, and review queues
-
-This stays at the structured-node level and does not perform real image processing.
-
-## Training Entrypoint
-
-`T008` adds a minimal `src/ciept/train/` and `src/ciept/eval/` path that can:
-
-- run one toy train step with `confidence-weighted ListMLE`
-- add intervention loss on the positive path
-- run one toy eval step with `Recall@1` and `MRR`
-- expose both flows through `python -m ciept.train.cli --mode train|eval`
-
-This is intentionally a toy executable path, not a full experiment framework.
+This repository intentionally separates the core research implementation from the auxiliary baseline / local-model / OCR layers. RecBole, PaddleOCR, and local Qwen weights should not leak back into the core `src/ciept` research boundaries.
